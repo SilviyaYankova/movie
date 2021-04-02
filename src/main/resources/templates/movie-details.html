@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/head"></head>
+
+<body>
+
+<header th:replace="fragments/nav"></header>
+
+<main th:object="${movieDetails}" class="p-5 align-content-center bg-blur text-dark">
+    <div class="justify-content-center text-dark">
+        <h1 class="border-left border-white pl-4 " style="color: orange"
+            th:text="|*{title} (*{releaseDate.year})|"></h1>
+    </div>
+    <div class="row rounded mb-5 mt-3">
+        <div class="col-md-6 bg-blur text-light rounded text-dark">
+            <div class="col-md-6 rounded">
+                <iframe width="560" height="315"
+                        th:src="'https://www.youtube.com/embed/' + *{trailerUrl}"
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="row mt-4">
+                <div class="col-xl-9 col-lg-9 col-md-12" style="color: black" >
+                    <div>
+                        <label class="details">Title:</label>
+                        <span class="textSize" th:text="|*{title}|"></span>
+                    </div>
+
+                    <div>
+                        <label class="details">Country:</label>
+                        <span class="textSize" th:text="|*{country}|"></span>
+                    </div>
+
+                    <div>
+                        <label class="details">Release Date:</label>
+                        <span class="textSize" th:text="|*{releaseDate}|"></span>
+                    </div>
+
+                    <div>
+                        <label class="details">Director:</label>
+                        <span class="textSize" th:text="|*{director}|"></span>
+                    </div>
+
+                    <div>
+                        <label class="details">Network:</label>
+                        <span class="textSize" th:text="|*{distributor}|"></span>
+                    </div>
+
+                    <div>
+                        <label class="details">Description:</label>
+                        <span class="textSize" th:text="|*{description}|"></span>
+                    </div>
+
+                    <div>
+                        <label class="details">Genre:</label>
+                        <span class="textSize" th:each="g, iterStat : *{genre}"  th:text="${!iterStat.last} ? ${g.name} + ', ': ${g.name}"></span>
+                    </div>
+
+                    <div>
+                        <label class="details">Cast:</label>
+                        <span class="textSize" th:text="|*{cast}|"></span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <img th:src="*{imageUrl}" alt="Drama poster" height="800" width="600px">
+    </div>
+
+    <div class="row rounded mb-5 mt-3">
+        <div class="container mt-5">
+            <div class="d-flex justify-content-center row ">
+                <div class="col-md-8">
+                    <div class="d-flex flex-column comment-section ">
+                        <div class="bg-blur text-light p-2 rounded">
+                            <div class="d-flex flex-row user-info text-dark">
+                                <img class="rounded-circle"
+                                     width="40">
+                                <div class="d-flex flex-column justify-content-start ml-2">
+                                    <span class="d-block font-weight-bold name"></span>
+                                    <span> Comment added on date and time </span></div>
+                            </div>
+                            <div class="mt-2">
+                                <p class="comment-text text-dark">Comment text</p>
+                            </div>
+                        </div>
+                        <div class="bg-blur text-light rounded  text-dark">
+                            <div class="d-flex flex-row fs-12 float-right text-dark">
+                                <div class="like p-2 cursor"><i class="fa fa-thumbs-o-up text-dark"></i><span
+                                        class="ml-1">Like</span></div>
+                                <div class="like p-2 cursor"><i class="fa fa-commenting-o text-dark"></i><span
+                                        class="ml-1">Comment</span>
+                                </div>
+                                <div class="like p-2 cursor"><i class="fa fa-share text-dark"></i><span class="ml-1">Share</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-blur text-light p-2 rounded text-dark">
+                            <form action="/comments/add" method="POST">
+                                <div class="d-flex flex-row align-items-start text-dark">
+                                    <img class="rounded-circle"
+                                         src="https://i.imgur.com/RpzrMR2.jpg"
+                                         width="40"><textarea name="text"
+                                                              class="form-control ml-1 shadow-none textarea"></textarea>
+                                </div>
+                                <input type="hidden" name="albumId" class="text-dark">
+                                <div class="mt-2 text-right text-dark">
+                                    <button class="btn btn-info btn-sm shadow-none text-dark" type="submit">Post comment
+                                    </button>
+                                    <button class="btn btn-info btn-sm ml-1 shadow-none text-dark" type="button">Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer"></footer>
+</body>
+
+</html>

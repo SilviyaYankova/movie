@@ -1,0 +1,69 @@
+/*!
+ * Start Bootstrap - Business Frontpage (https://startbootstrap.com/template/business-frontpage)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-business-frontpage/blob/master/LICENSE)
+ */
+body {
+    /*background-image: url(/images/high-quality-grunge-texter-32-1024x768.jpg);*/
+    /*background: #ffd280;*/
+    padding-top: 56px;
+}
+
+
+.nav-link {
+    color: white;
+    font-size: 18px;
+    padding-top: 15px;
+}
+
+.btn {
+    color: white;
+    font-size: 18px;
+    padding-top: 13px;
+}
+
+.col-auto {
+    color: black;
+}
+
+.carousel-item img {
+    padding-top: 5px;
+    padding-bottom: 20px;
+    margin: auto;
+    height: 500px;
+}
+
+.carouselExampleIndicators {
+    height: 500px;
+}
+
+.row {
+    padding-top: 40px;
+}
+
+* {
+. border-radius(0) !important;
+}
+
+#field {
+    margin-bottom: 20px;
+}
+
+.invalid-feedback {
+    color: black;
+}
+
+.details {
+    color: orange;
+    font-size: 25px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.textSize {
+    font-size: 20px;
+}
+
+#search-input {
+    height: 45px;
+}

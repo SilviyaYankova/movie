@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head"></head>
+
+<body>
+<header th:replace="fragments/nav"></header>
+
+<main class="p-5 align-content-center bg-blur my-main">
+    <h1 class="text-dark border-bottom">Add Drama</h1>
+    <div class="d-flex justify-content-center">
+        <div class="row g-3">
+            <form
+                    th:action="@{/dramas/add-drama}"
+                    method="POST"
+                    th:object="${dramaAddBindingModel}"
+                    class="text-light">
+                <!--                title & country-->
+                <div class="form-row m-5 text-dark">
+                    <div class="col">
+                        <label for="title">Title</label>
+                        <input
+                                th:field="*{title}"
+                                th:errorclass="is-invalid"
+                                name="title" id="title" type="text" class="form-control" placeholder="Title"
+                                required minlength="2" maxlength="50">
+                        <small th:if="${#fields.hasErrors('title')}" th:errors="*{title}" id="titleError"
+                               class="invalid-feedback form-text bg-danger rounded"></small>
+                    </div>
+
+                    <div class="col">
+                        <label for="episodes">Episodes</label>
+                        <input
+                                th:field="*{episodes}"
+                                th:errorclass="is-invalid"
+                                name="country" id="episodes" class="form-control" type="number" placeholder="Episodes"
+                                required min="1" >
+                        <small th:if="${#fields.hasErrors('episodes')}" th:errors="*{episodes}" id="episodesError"
+                               class="invalid-feedback form-text bg-danger rounded"></small>
+                    </div>
+
+                    <div class="col">
+                        <label for="country">Country</label>
+                        <input
+                                th:field="*{country}"
+                                th:errorclass="is-invalid"
+                                name="country" id="country" type="text" class="form-control" placeholder="Country"
+                                required minlength="2" maxlength="50">
+                        <small th:if="${#fields.hasErrors('country')}" th:errors="*{country}" id="countryError"
+                               class="invalid-feedback form-text bg-danger rounded"></small>
+                    </div>
+
+                </div>
+
+                <!--                releaseDate & director & distributor-->
+                <div class="form-row m-5 text-dark ">
+                    <div class="col">
+                        <label for="releaseDate">Release date</label>
+                        <input
+                                th:field="*{releaseDate}"
+                                th:errorclass="is-invalid"
+                                name="releaseDate" id="releaseDate" type="date" class="form-control"
+                                placeholder="Release date">
+                        <small th:if="${#fields.hasErrors('releaseDate')}" th:errors="*{releaseDate}"
+                               id="releaseDateError" class="invalid-feedback form-text bg-danger rounded"></small>
+                    </div>
+                    <div class="col">
+                        <label for="director">Director</label>
+                        <input
+                                th:field="*{director}"
+                                th:errorclass="is-invalid"
+                                name="director" id="director" type="text" class="form-control" placeholder="Director"
+                                required minlength="2" maxlength="50">
+                        <small th:if="${#fields.hasErrors('director')}" th:errors="*{director}" id="directorError"
+                               class="invalid-feedback form-text bg-danger rounded"></small>
+                    </div>
+                    <div class="col text-dark ">
+                        <label for="distributor">Network</label>
+                        <input
+                                th:field="*{distributor}"
+                                th:errorclass="is-invalid"
+                                name="distributor" id="distributor" type="text" class="form-control"
+                                placeholder="Network"
+                                required minlength="2" maxlength="50">
+                        <small th:if="${#fields.hasErrors('distributor')}" th:errors="*{distributor}"
+                               id="distributorError" class="invalid-feedback form-text bg-danger rounded"></small>
+                    </div>
+                </div>
+
+                <!--                genre-->
+                <div class="form-row m-5 text-dark">
+                    <div class="col">
+                        <label>Genre </label>
+                        <th:block class="redError" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}" >
+                            <small class="form-text bg-danger rounded" >
+                                </small>
+                            <br/>
+                        </th:block>
+                        <div class="form-check"
+                             th:each="g : ${T(bg.softuni.movie.model.entity.enums.GenreEnum).values()}">
+                            <input
+                                    th:field="*{genre}"
+                                    th:errorclass="is-invalid"
+                                    th:value="${g}"
+                                    class="form-check-input" type="checkbox">
+                            <label class="form-check-label" th:for="${#ids.prev('genre')}" th:text="${g}"></label>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!--                    cast-->
+                <div class="form-row m-5 text-dark ">
+                    <div class="col">
+                        <label for="cast">Cast</label>
+                        <textarea th:field="*{cast}"
+                                  th:errorclass="is-invalid" name="description" id="cast" type="text"
+                                  class="form-control"
+                                  placeholder="Cast1, Cast, Cast3..." required minlength="2"></textarea>
+                        <small th:if="${#fields.hasErrors('cast')}" th:errors="*{cast}" id="castError"
+                               class="invalid-feedback form-text bg-danger rounded"></small>
+                    </div>
+                </div>
+
+                <!--                    description-->
+                <div class="form-row m-5 text-dark ">
+                    <div class="col">
+                        <label for="description">Description</label>
+                        <textarea th:field="*{description}"
+                                  th:errorclass="is-invalid" name="description" id="description" type="text"
+                                  class="form-control"
+                                  placeholder="Description" required minlength="10"></textarea>
+                        <small th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                               id="descriptionError" class="invalid-feedback form-text bg-danger rounded"></small>
+                    </div>
+                </div>
+
+                <!--                imageURL-->
+                <div class="form-row m-5 text-dark ">
+                    <div class="col text-dark ">
+                        <label for="imageURL">Image URL</label>
+                        <input
+                                th:field="*{imageUrl}"
+                                th:errorclass="is-invalid"
+                                name="imageURL" id="imageURL" type="text" class="form-control"
+                                placeholder="Image URL"
+                        >
+                        <small th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}" id="imageURLError"
+                               class="invalid-feedback form-text bg-danger rounded"></small>
+                    </div>
+                </div>
+
+                <!--                trailerURL-->
+                <div class="form-row m-5 text-dark ">
+                    <div class="col text-dark ">
+                        <label for="trailerURL">Trailer URL</label>
+                        <input
+                                th:field="*{trailerUrl}"
+                                th:errorclass="is-invalid"
+                                name="trailerURL" id="trailerURL" type="text" class="form-control"
+                                placeholder="Trailer URL"
+                        >
+                        <small th:if="${#fields.hasErrors('trailerUrl')}" th:errors="*{trailerUrl}"
+                               id="trailerURLError"
+                               class="invalid-feedback form-text bg-danger rounded"></small>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt-4">
+                    <button class="btn btn-info btn-block w-50" type="submit">Add Drama to Database</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</main>
+
+<footer th:replace="fragments/footer"></footer>
+
+</body>
+</html>

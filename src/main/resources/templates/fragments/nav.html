@@ -1,0 +1,98 @@
+<th:block xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img th:src="@{/images/homeButton.png}" width="50px" height="40px" alt="HomeButton picture"
+                     style="background-color: azure">
+            </a>
+
+<!--                    admin-->
+            <div sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown" style="color: orange">
+                <button class="nav-link btn dropdown-toggle" style="color: orange" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admin
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <th:block sec:authorize="isAuthenticated()">
+
+                        <!--                        user-->
+                        <div class="dropdown">
+                            <button class="nav-link btn dropdown-toggle" style="color: orange" type="button"
+                                    id="dropdownMenuButton2"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Hello, <u><span sec:authentication="name"></span></u>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" style="color: orange" th:href="@{/users/profile}">Profile</a>
+                                <a class="dropdown-item" style="color: orange" th:href="@{/users/my-dramas}">My Dramas</a>
+                                <a class="dropdown-item" style="color: orange" th:href="@{/users/my-movies}">My Movies</a>
+                            </div>
+                        </div>
+
+                        <!--                            add-->
+                        <div class="dropdown">
+                            <button class="nav-link btn dropdown-toggle" style="color: orange" type="button"
+                                    id="dropdownMenuButtonAdd"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Add
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li class="nav-item active">
+                                    <a class="nav-link" style="color: orange" th:href="@{/dramas/add-drama}">Add
+                                        Drama</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" style="color: orange" th:href="@{/movies/add-movie}">Add
+                                        Movie</a>
+                                </li>
+                            </div>
+                        </div>
+
+
+                        <!--                        see all-->
+                        <div class="dropdown">
+                            <button class="nav-link btn dropdown-toggle" style="color: orange" type="button"
+                                    id="dropdownMenuButtonSee"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                See
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li class="nav-item active">
+                                    <a class="nav-link" style="color: orange" th:href="@{/dramas/all-dramas}"> All Dramas</a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" style="color: orange" th:href="@{/movies/all-movies}"> All Movies</a>
+                                </li>
+                            </div>
+                        </div>
+                        <li class="nav-item ">
+                            <form th:action="@{/logout}" method="POST">
+                                <button type="submit" class="btn" style="color: orange">
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    </th:block>
+
+                    <th:block sec:authorize="!isAuthenticated()">
+                        <li class="nav-item active">
+                            <a class="nav-link active" style="color: orange" th:href="@{/users/login}">Login</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" style="color: orange" th:href="@{/users/register}">Register</a>
+                        </li>
+                    </th:block>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</th:block>

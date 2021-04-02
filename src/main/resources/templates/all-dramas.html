@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/head"></head>
+
+<body>
+
+<header th:replace="fragments/nav"></header>
+
+<main class="p-5 align-content-center bg-blur">
+
+    <h2>All dramas</h2>
+    <div class="row mt-5" id="dramaList">
+        <div class="col-md-3" th:each="d : ${allDramas}" th:object="${d}">
+            <div class=" card mb-4 box-shadow">
+                <img th:src="*{imageUrl}" class="card-img-top" alt="Thumbnail [100%x225]"
+                     data-holder-rendered="true"
+                     style="height: 300px; width: 100%; display: block;">
+                <div class="card-body">
+                    <div class="text-center">
+                        <p class="card-text border-bottom" th:text="|Title: *{title}|"></p>
+                        <p class="card-text border-bottom" th:text="|Country: *{country}|"></p>
+                        <p class="card-text border-bottom" th:text="|Episodes: *{episodes}|"></p>
+                        <p class="card-text border-bottom" th:text="|Year: *{releaseDate.year}|"> </p>
+                        <p class="card-text border-bottom" th:text="|Director: *{director}|"></p>
+                        <p class="card-text border-bottom" >Genre:
+                        <span th:each="g, iterStat : *{genre}"  th:if="${iterStat.index <= 1}" th:text="${!iterStat.last} ? ${g.name} + ', ': ${g.name}"></span></p>
+<!--                        <span th:each="g, iterStat : *{genre}" th:text="${!iterStat.last} ? ${g.name} + ', ': ${g.name}"></span></p>-->
+                    </div>
+                    <br>
+                    <div  class="d-flex justify-content-between align-items-center text-dark">
+                        <div class="btn-group">
+                            <a th:href="@{/dramas/drama-details/{id}(id = *{id})}" type="button" class="btn btn-sm btn-info">Details</a>
+                        </div>
+                        <div class="btn-group">
+                            <a th:href="@{/dramas/delete/{id}(id = *{id})}" type="button" class="btn btn-sm btn-info">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</main>
+<th:block sec:authorize="!isAuthenticated()">
+    <br><br><br><br><br><br><br>
+    <footer id="footer1" class="py-4 bg-dark">
+        <div class="container-fluid text-center">
+            <p class="m-0 text-center"  style="color: orange">Copyright &copy; Asian Movie Database 2021</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+</th:block>
+<footer sec:authorize="isAuthenticated()" th:replace="fragments/footer"></footer>
+</body>
+
+</html>

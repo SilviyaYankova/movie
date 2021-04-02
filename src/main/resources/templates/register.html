@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/head"></head>
+
+<body>
+
+<header th:replace="fragments/nav"></header>
+
+<main class="p-5 align-content-center bg-blur my-register-div my-main">
+    <h1 class="text-dark border-bottom">Register</h1>
+    <div class="d-flex justify-content-center ">
+        <div class="row g-3 align-items-center">
+            <img alt="" src="" class="w-50 rounded">
+        </div>
+        <div class="row g-3">
+            <form
+                    th:action="@{/users/register}"
+                    th:object="${userRegisterBindingModel}"
+                    method="POST">
+                <div>
+                    <div class="col-auto">
+                        <label for="inputUsername" class="col-form-label text-dark">Username</label>
+                    </div>
+                    <div class="col-auto">
+                        <input
+                                th:field="*{username}"
+                                th:errorclass="is-invalid"
+                                name="username" type="text" id="inputUsername"
+                                class="form-control"
+                                aria-describedby="usernameHelpInline"
+                                placeholder="Username"
+                                required minlength="5" maxlength="20">
+                        <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}" id="usernameError"
+                               class="invalid-feedback text-light form-text bg-danger rounded">
+                        </small>
+
+                        <small th:if="${userExistError}"
+                               id="usernameUniqueError"
+                               class="text-light form-text bg-danger rounded">Username is already occupied
+                        </small>
+                    </div>
+                </div>
+                <div>
+                    <div class="col-auto">
+                        <label for="inputFullName" class="col-form-label text-dark">Full Name</label>
+                    </div>
+                    <div class="col-auto">
+                        <input
+                                th:field="*{fullName}"
+                                th:errorclass="is-invalid"
+                                type="text" name="fullName"
+                                id="inputFullName" class="form-control"
+                                aria-describedby="fullNameHelpInline"
+                                placeholder="Full name"
+                                required minlength="5" maxlength="20">
+                        <small th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" id="fullNameError"
+                               class="invalid-feedback text-light form-text bg-danger rounded">
+                        </small>
+                    </div>
+                </div>
+                <div>
+                    <div class="col-auto">
+                        <label for="inputEmail" class="col-form-label text-dark">Email</label>
+                    </div>
+                    <div class="col-auto">
+                        <input
+                                th:field="*{email}"
+                                th:errorclass="is-invalid" type="email" name="email" id="inputEmail"
+                                class="form-control"
+                                aria-describedby="emailHelpInline"
+                                placeholder="Email" required="required">
+                        <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}" id="emailError"
+                               class="invalid-feedback text-light form-text bg-danger rounded">
+                        </small>
+                        <small th:if="${emailExistError}"
+                               id="emailUniqueError"
+                               class="text-light form-text bg-danger rounded">
+                        </small>
+                    </div>
+                </div>
+                <div>
+                    <div class="col-auto">
+                        <label for="inputPassword" class="col-form-label text-dark">Password</label>
+                    </div>
+                    <div class="col-auto">
+                        <input
+                                th:field="*{password}"
+                                th:errorclass="is-invalid"
+                                type="password" name="password" id="inputPassword"
+                                class="form-control"
+                                aria-describedby="passwordHelpInline"
+                                placeholder="Password"
+                                required minlength="5" maxlength="20">
+                        <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" id="passwordError"
+                               class="invalid-feedback text-light form-text bg-danger rounded">
+                        </small>
+                    </div>
+                </div>
+                <div>
+                    <div class="col-auto">
+                        <label for="inputConfirmPassword" class="col-form-label text-dark">Confirm Password</label>
+                    </div>
+                    <div class="col-auto">
+                        <input
+                                th:field="*{confirmPassword}"
+                                th:errorclass="is-invalid"
+                                type="password" name="confirmPassword"
+                                id="inputConfirmPassword" class="form-control"
+                                aria-describedby="confirmPasswordHelpInline"
+                                placeholder="Confirm Password"
+                                required minlength="5" maxlength="20">
+                        <small th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"
+                               id="confirmPasswordError"
+                               class="invalid-feedback text-light form-text bg-danger rounded">
+                        </small>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt-4">
+                    <button class="btn btn-info btn-block w-50" type="submit">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+
+<footer th:replace="fragments/footer"></footer>
+
+</body>
+</html>
