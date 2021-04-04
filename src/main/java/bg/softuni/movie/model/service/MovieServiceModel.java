@@ -1,5 +1,6 @@
 package bg.softuni.movie.model.service;
 
+import bg.softuni.movie.model.entity.CountryEntity;
 import bg.softuni.movie.model.entity.enums.GenreEnum;
 
 import java.time.LocalDate;
@@ -8,7 +9,6 @@ import java.util.List;
 public class MovieServiceModel {
 
     private String title;
-    private String country;
     private List<GenreEnum> genre;
     private LocalDate releaseDate;
     private String director;
@@ -18,6 +18,8 @@ public class MovieServiceModel {
     private String imageUrl;
     private String trailerUrl;
     private String user;
+    private CountryEntity country;
+    private LocalDate addedOn;
 
     public MovieServiceModel() {
     }
@@ -28,15 +30,6 @@ public class MovieServiceModel {
 
     public MovieServiceModel setTitle(String title) {
         this.title = title;
-        return this;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public MovieServiceModel setCountry(String country) {
-        this.country = country;
         return this;
     }
 
@@ -118,6 +111,24 @@ public class MovieServiceModel {
 
     public MovieServiceModel setUser(String user) {
         this.user = user;
+        return this;
+    }
+
+    public CountryEntity getCountry() {
+        return country;
+    }
+
+    public MovieServiceModel setCountry(CountryEntity country) {
+        this.country = country;
+        return this;
+    }
+
+    public LocalDate getAddedOn() {
+        return addedOn;
+    }
+
+    public MovieServiceModel setAddedOn(LocalDate addedOn) {
+        this.addedOn = addedOn;
         return this;
     }
 }

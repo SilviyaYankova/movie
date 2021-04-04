@@ -51,7 +51,6 @@ public class UserController {
             model.addAttribute("userExistError", false);
             model.addAttribute("bad_credentials", false);
             model.addAttribute("username", username);
-
         }
 
         return "login";
@@ -156,13 +155,13 @@ public class UserController {
 
     @GetMapping("/my-dramas")
     public String myDramas(Model model) {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
         UserEntity user = userService.findUser(username);
 
         List<DramaViewModel> userDramas = dramaService.displayUserDramas(user);
-
 
         model.addAttribute("userDramas", userDramas);
 
@@ -171,13 +170,13 @@ public class UserController {
 
     @GetMapping("/my-movies")
     public String myMovies(Model model) {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
         UserEntity user = userService.findUser(username);
 
         List<MovieViewModel> userMovies = movieService.displayUserMovies(user);
-
 
         model.addAttribute("userMovies", userMovies);
 

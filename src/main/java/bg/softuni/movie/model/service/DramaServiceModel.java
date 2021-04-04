@@ -1,5 +1,7 @@
 package bg.softuni.movie.model.service;
 
+import bg.softuni.movie.model.entity.CommentEntity;
+import bg.softuni.movie.model.entity.CountryEntity;
 import bg.softuni.movie.model.entity.enums.GenreEnum;
 
 import java.time.LocalDate;
@@ -11,7 +13,6 @@ public class DramaServiceModel {
 
     private String title;
     private Integer episodes;
-    private String country;
     private List<GenreEnum> genre;
     private LocalDate releaseDate;
     private String director;
@@ -21,6 +22,9 @@ public class DramaServiceModel {
     private String imageUrl;
     private String trailerUrl;
     private String user;
+    private CountryEntity country;
+    private LocalDate addedOn;
+    private List<CommentEntity> comments;
 
     public DramaServiceModel() {
     }
@@ -40,15 +44,6 @@ public class DramaServiceModel {
 
     public DramaServiceModel setEpisodes(Integer episodes) {
         this.episodes = episodes;
-        return this;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public DramaServiceModel setCountry(String country) {
-        this.country = country;
         return this;
     }
 
@@ -130,6 +125,34 @@ public class DramaServiceModel {
 
     public DramaServiceModel setUser(String user) {
         this.user = user;
+        return this;
+    }
+
+    public CountryEntity getCountry() {
+        return country;
+    }
+
+    public DramaServiceModel setCountry(CountryEntity country) {
+        this.country = country;
+        return this;
+    }
+
+    public LocalDate getAddedOn() {
+        return addedOn;
+    }
+
+    public DramaServiceModel setAddedOn(LocalDate addedOn) {
+        this.addedOn = addedOn;
+        return this;
+    }
+
+
+    public List<CommentEntity> getComments() {
+        return comments;
+    }
+
+    public DramaServiceModel setComments(List<CommentEntity> comments) {
+        this.comments = comments;
         return this;
     }
 }

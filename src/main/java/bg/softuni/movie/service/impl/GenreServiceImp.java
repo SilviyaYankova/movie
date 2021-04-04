@@ -36,6 +36,7 @@ public class GenreServiceImp implements GenreService {
             GenreEntity sciFiGenre = new GenreEntity().setName(GenreEnum.SCI_FI);
             GenreEntity supernaturalGenre = new GenreEntity().setName(GenreEnum.SUPERNATURAL);
             GenreEntity thriller = new GenreEntity().setName(GenreEnum.THRILLER);
+
             genreRepository.saveAll(List.of(actionGenre, adventureGenre, animationGenre, comedyGenre, dramaGenre,
                     familyGenre, fantasyGenre, historicalGenre, horrorGenre, romanceGenre, mysteryGenre,
                     psychologicalGenre, sciFiGenre, supernaturalGenre, thriller));

@@ -10,7 +10,7 @@ import java.util.List;
 public interface MovieService {
     void addMovie(MovieServiceModel movieServiceModel);
 
-    List<MovieViewModel> displayAllDramas();
+    List<MovieViewModel> displayAllMovies();
 
     MovieViewModel findById(Long id);
 

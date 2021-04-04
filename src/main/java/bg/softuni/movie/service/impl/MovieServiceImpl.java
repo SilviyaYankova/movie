@@ -1,19 +1,17 @@
 package bg.softuni.movie.service.impl;
 
-import bg.softuni.movie.model.entity.DramaEntity;
-import bg.softuni.movie.model.entity.GenreEntity;
-import bg.softuni.movie.model.entity.MovieEntity;
-import bg.softuni.movie.model.entity.UserEntity;
+import bg.softuni.movie.model.entity.*;
 import bg.softuni.movie.model.service.MovieServiceModel;
-import bg.softuni.movie.model.view.DramaViewModel;
 import bg.softuni.movie.model.view.MovieViewModel;
 import bg.softuni.movie.repository.MovieRepository;
+import bg.softuni.movie.service.CountryService;
 import bg.softuni.movie.service.GenreService;
 import bg.softuni.movie.service.MovieService;
 import bg.softuni.movie.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,12 +22,14 @@ public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieRepository;
     private final UserService userService;
     private final GenreService genreService;
+    private final CountryService countryService;
     private final ModelMapper modelMapper;
 
-    public MovieServiceImpl(MovieRepository movieRepository, UserService userService, GenreService genreService, ModelMapper modelMapper) {
+    public MovieServiceImpl(MovieRepository movieRepository, UserService userService, GenreService genreService, CountryService countryService, ModelMapper modelMapper) {
         this.movieRepository = movieRepository;
         this.userService = userService;
         this.genreService = genreService;
+        this.countryService = countryService;
         this.modelMapper = modelMapper;
     }
 
@@ -45,7 +45,12 @@ public class MovieServiceImpl implements MovieService {
             genreEntities.add(genreEntity);
         });
 
-        movieEntity.setGenre(genreEntities);
+        CountryEntity countryEntity = countryService.findCountry(movieServiceModel.getCountry().getName());
+
+        movieEntity
+                .setCountry(countryEntity)
+                .setGenre(genreEntities)
+                .setAddedOn(LocalDate.now());
 
 
         UserEntity user = userService.findUser(movieServiceModel.getUser());
@@ -57,7 +62,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<MovieViewModel> displayAllDramas() {
+    public List<MovieViewModel> displayAllMovies() {
         return movieRepository.findAllMoviesDesc()
                 .stream()
                 .map(movieEntity -> {
@@ -75,7 +80,8 @@ public class MovieServiceImpl implements MovieService {
                             .setGenre(movieEntity.getGenre())
                             .setDistributor(movieEntity.getDistributor())
                             .setCountry(movieEntity.getCountry())
-                            .setCast(movieEntity.getCast());
+                            .setCast(movieEntity.getCast())
+                            .setAddedOn(LocalDate.now());
 
                     return movieViewModel;
                 }).collect(Collectors.toList());
@@ -115,7 +121,8 @@ public class MovieServiceImpl implements MovieService {
                             .setGenre(movieEntity.getGenre())
                             .setDistributor(movieEntity.getDistributor())
                             .setCountry(movieEntity.getCountry())
-                            .setCast(movieEntity.getCast());
+                            .setCast(movieEntity.getCast())
+                            .setAddedOn(LocalDate.now());
 
                     return movieViewModel;
                 }).collect(Collectors.toList());

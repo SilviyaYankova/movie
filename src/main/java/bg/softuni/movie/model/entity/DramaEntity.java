@@ -1,17 +1,15 @@
 package bg.softuni.movie.model.entity;
 
-import bg.softuni.movie.model.entity.enums.GenreEnum;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "dramas")
-public class DramaEntity extends BaseEntity{
+public class DramaEntity extends BaseEntity {
 
     private String title;
     private Integer episodes;
@@ -22,9 +20,11 @@ public class DramaEntity extends BaseEntity{
     private LocalDate releaseDate;
     private List<GenreEntity> genre;
     private String distributor;
-    private String country;
     private String cast;
     private UserEntity user;
+    private CountryEntity country;
+    private LocalDate addedOn;
+    private List<CommentEntity> comments;
 
     public DramaEntity() {
     }
@@ -78,6 +78,7 @@ public class DramaEntity extends BaseEntity{
         this.description = description;
         return this;
     }
+
     @Column(name = "derector", nullable = false, columnDefinition = "TEXT")
     public String getDirector() {
         return director;
@@ -119,16 +120,6 @@ public class DramaEntity extends BaseEntity{
         return this;
     }
 
-    @Column(name = "country", nullable = false)
-    public String getCountry() {
-        return country;
-    }
-
-    public DramaEntity setCountry(String country) {
-        this.country = country;
-        return this;
-    }
-
     @Column(name = "cast", nullable = false, columnDefinition = "TEXT")
     public String getCast() {
         return cast;
@@ -149,5 +140,34 @@ public class DramaEntity extends BaseEntity{
         return this;
     }
 
+    @ManyToOne()
+    public CountryEntity getCountry() {
+        return country;
+    }
 
+    public DramaEntity setCountry(CountryEntity country) {
+        this.country = country;
+        return this;
+    }
+
+    @Column(name = "added_on", nullable = false)
+    public LocalDate getAddedOn() {
+        return addedOn;
+    }
+
+    public DramaEntity setAddedOn(LocalDate addedOn) {
+        this.addedOn = addedOn;
+        return this;
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    public List<CommentEntity> getComments() {
+        return comments;
+    }
+
+    public DramaEntity setComments(List<CommentEntity> comments) {
+        this.comments = comments;
+        return this;
+    }
 }

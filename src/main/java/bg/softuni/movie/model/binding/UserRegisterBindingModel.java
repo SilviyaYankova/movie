@@ -1,10 +1,12 @@
 package bg.softuni.movie.model.binding;
 
 import bg.softuni.movie.model.validators.FieldMatch;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 
 @FieldMatch(
@@ -19,6 +21,7 @@ public class UserRegisterBindingModel {
     private String password;
     private String confirmPassword;
     private String imageUrl;
+    private LocalDate registeredOn;
 
     public UserRegisterBindingModel() {
     }
@@ -84,6 +87,16 @@ public class UserRegisterBindingModel {
 
     public UserRegisterBindingModel setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        return this;
+    }
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    public LocalDate getRegisteredOn() {
+        return registeredOn;
+    }
+
+    public UserRegisterBindingModel setRegisteredOn(LocalDate registeredOn) {
+        this.registeredOn = registeredOn;
         return this;
     }
 }

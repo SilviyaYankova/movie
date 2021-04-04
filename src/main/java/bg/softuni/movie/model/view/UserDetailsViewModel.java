@@ -4,6 +4,7 @@ import bg.softuni.movie.model.entity.DramaEntity;
 import bg.softuni.movie.model.entity.MovieEntity;
 import bg.softuni.movie.model.entity.UserRoleEntity;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class UserDetailsViewModel {
@@ -16,6 +17,7 @@ public class UserDetailsViewModel {
     private List<DramaEntity> dramas;
     private List<MovieEntity> movies;
     private String imageUrl;
+    private LocalDate registeredOn;
 
     public String getId() {
         return id;
@@ -88,6 +90,15 @@ public class UserDetailsViewModel {
 
     public UserDetailsViewModel setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public LocalDate getRegisteredOn() {
+        return registeredOn;
+    }
+
+    public UserDetailsViewModel setRegisteredOn(LocalDate registeredOn) {
+        this.registeredOn = registeredOn;
         return this;
     }
 }

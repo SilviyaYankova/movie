@@ -1,6 +1,7 @@
 package bg.softuni.movie.model.view;
 
 
+import bg.softuni.movie.model.entity.CountryEntity;
 import bg.softuni.movie.model.entity.GenreEntity;
 
 import java.time.LocalDate;
@@ -17,8 +18,9 @@ public class MovieViewModel {
     private LocalDate releaseDate;
     private List<GenreEntity> genre;
     private String distributor;
-    private String country;
     private String cast;
+    private CountryEntity country;
+    private LocalDate addedOn;
 
     public MovieViewModel() {
     }
@@ -104,21 +106,30 @@ public class MovieViewModel {
         return this;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public MovieViewModel setCountry(String country) {
-        this.country = country;
-        return this;
-    }
-
     public String getCast() {
         return cast;
     }
 
     public MovieViewModel setCast(String cast) {
         this.cast = cast;
+        return this;
+    }
+
+    public CountryEntity getCountry() {
+        return country;
+    }
+
+    public MovieViewModel setCountry(CountryEntity country) {
+        this.country = country;
+        return this;
+    }
+
+    public LocalDate getAddedOn() {
+        return addedOn;
+    }
+
+    public MovieViewModel setAddedOn(LocalDate addedOn) {
+        this.addedOn = addedOn;
         return this;
     }
 }

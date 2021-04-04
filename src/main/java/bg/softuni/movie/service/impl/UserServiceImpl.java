@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,7 +58,8 @@ public class UserServiceImpl implements UserService {
                     .setPassword(passwordEncoder.encode("11111"))
                     .setEmail("sss@sss.ss")
                     .setRoles(List.of(adminRole, userRole))
-                    .setImageUrl("https://res.cloudinary.com/dpuujizet/image/upload/v1615840053/b56dvhio3kxbo10spz9b.png");
+                    .setImageUrl("https://res.cloudinary.com/dpuujizet/image/upload/v1615840053/b56dvhio3kxbo10spz9b.png")
+                    .setRegisteredOn(LocalDate.now());
 
             UserEntity user = new UserEntity()
                     .setUsername("user1")
@@ -65,7 +67,8 @@ public class UserServiceImpl implements UserService {
                     .setPassword(passwordEncoder.encode("11111"))
                     .setEmail("111@111.11")
                     .setRoles(List.of(userRole))
-                    .setImageUrl("https://res.cloudinary.com/dpuujizet/image/upload/v1615840053/b56dvhio3kxbo10spz9b.png");
+                    .setImageUrl("https://res.cloudinary.com/dpuujizet/image/upload/v1615840053/b56dvhio3kxbo10spz9b.png")
+                    .setRegisteredOn(LocalDate.now());
 
 
             userRepository.save(admin);
@@ -85,6 +88,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new IllegalArgumentException("User role not found. Please seed the roles"));
 
         newUser.addRole(userRole);
+        newUser.setRegisteredOn(LocalDate.now());
 
         newUser = userRepository.save(newUser);
 

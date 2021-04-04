@@ -2,7 +2,6 @@ package bg.softuni.movie.web;
 
 import bg.softuni.movie.model.binding.MovieAddBindingModel;
 import bg.softuni.movie.model.service.MovieServiceModel;
-import bg.softuni.movie.model.view.DramaViewModel;
 import bg.softuni.movie.model.view.MovieViewModel;
 import bg.softuni.movie.service.MovieService;
 import org.modelmapper.ModelMapper;
@@ -65,7 +64,7 @@ public class MovieController {
     @GetMapping("/all-movies")
     public String allDramas(Model model) {
 
-        List<MovieViewModel> movieViewModelList = movieService.displayAllDramas();
+        List<MovieViewModel> movieViewModelList = movieService.displayAllMovies();
 
         model.addAttribute("allMovies", movieViewModelList);
 

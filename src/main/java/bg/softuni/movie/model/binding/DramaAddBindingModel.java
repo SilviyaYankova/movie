@@ -1,5 +1,7 @@
 package bg.softuni.movie.model.binding;
 
+import bg.softuni.movie.model.entity.CountryEntity;
+import bg.softuni.movie.model.entity.GenreEntity;
 import bg.softuni.movie.model.entity.enums.GenreEnum;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,7 +17,6 @@ public class DramaAddBindingModel {
 
     private String title;
     private Integer episodes;
-    private String country;
     private List<GenreEnum> genre;
     private LocalDate releaseDate;
     private String director;
@@ -24,6 +25,8 @@ public class DramaAddBindingModel {
     private String description;
     private String imageUrl;
     private String trailerUrl;
+    private CountryEntity country;
+    private LocalDate addedOn;
 
     public DramaAddBindingModel() {
     }
@@ -50,18 +53,6 @@ public class DramaAddBindingModel {
         this.episodes = episodes;
         return this;
     }
-
-    @Size(min = 2, max = 50, message = "Country name must be between 2 and 50 characters")
-    @NotBlank(message = "Country name can not be empty")
-    public String getCountry() {
-        return country;
-    }
-
-    public DramaAddBindingModel setCountry(String country) {
-        this.country = country;
-        return this;
-    }
-
 
     @NotNull()
     @Size(min = 1, message = " - Choose at least one genre")
@@ -149,4 +140,24 @@ public class DramaAddBindingModel {
         return this;
     }
 
+    @NotNull(message = "Country name can not be empty")
+    public CountryEntity getCountry() {
+        return country;
+    }
+
+    public DramaAddBindingModel setCountry(CountryEntity country) {
+        this.country = country;
+        return this;
+    }
+
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    public LocalDate getAddedOn() {
+        return addedOn;
+    }
+
+    public DramaAddBindingModel setAddedOn(LocalDate addedOn) {
+        this.addedOn = addedOn;
+        return this;
+    }
 }

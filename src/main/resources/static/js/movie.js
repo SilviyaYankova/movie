@@ -6,7 +6,7 @@ fetch("http://localhost:8080/dramas/drama-api").then(response => response.json()
         allDramas.push(drama);
     }
 })
-fetch("http://localhost:8080/dramas/movie-api").then(response => response.json()).then(data => {
+fetch("http://localhost:8080/movies/movie-api").then(response => response.json()).then(data => {
     for (let movie of data) {
         allMovies.push(movie);
     }
@@ -33,15 +33,14 @@ window.onload = (event) => {
             all.push(filteredDramas);
         }
 
+        let all2 = [];
         if (filteredMovies.length >= 1) {
-            all.push(filteredMovies);
+            all2.push(filteredMovies);
         }
 
 
-        console.log(all)
         displayFoundDramas(all);
-        // displayFoundDramas(filteredDramas);
-        // displayFoundMovies(filteredMovies);
+        displayFoundMovies(all2);
     });
 
 
@@ -58,7 +57,7 @@ window.onload = (event) => {
                         <div class="card-body">
                     <div class="text-center">
                         <p class="card-text border-bottom">Title: ${d.title}</p>
-                        <p class="card-text border-bottom">Country: ${d.country}</p>
+                        <p class="card-text border-bottom">Country: ${d.country.name}</p>
                         <p class="card-text border-bottom">Episodes: ${d.episodes}</p>
                         <p class="card-text border-bottom">Release Date: ${d.releaseDate}</p>
                         <p class="card-text border-bottom">Director: ${d.director}</p>
@@ -66,10 +65,50 @@ window.onload = (event) => {
                     <br>
                     <div class="d-flex justify-content-between align-items-center text-dark">
                         <div class="btn-group">
-                            <a href="" type="button" class="btn btn-sm btn-info">Details</a>
+                            <a href="/dramas/drama-details/${d.id}" type="button" class="btn btn-sm btn-info">Details</a>
                         </div>
                         <div class="btn-group">
-                            <a href="" type="button" class="btn btn-sm btn-info">Delete</a>
+                            <a href="/dramas/delete/${d.id}" type="button" class="btn btn-sm btn-info">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                </div>`
+                }).join('');
+        })
+
+
+
+
+
+    }
+
+    const displayFoundMovies = (movie) => {
+        console.log("this is movies")
+        console.log(movie)
+        movie.forEach(movie => {
+            toList.innerHTML = movie
+                .map((m) => {
+                    console.log(m.imageURL)
+                    return `<div class="col-md-3">
+                    <div class=" card mb-4 box-shadow">
+                          <img src="${m.imageUrl}" class="card-img-top" alt="Thumbnail [100%x225]"
+                     data-holder-rendered="true"
+                     style="height: 300px; width: 100%; display: block;">
+                        <div class="card-body">
+                    <div class="text-center">
+                        <p class="card-text border-bottom">Title: ${m.title}</p>
+                        <p class="card-text border-bottom">Country: ${m.country.name}</p>
+                        <p class="card-text border-bottom">Release Date: ${m.releaseDate}</p>
+                        <p class="card-text border-bottom">Director: ${m.director}</p>
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-between align-items-center text-dark">
+                        <div class="btn-group">
+                            <a href="/movies/movie-details/${m.id}" type="button" class="btn btn-sm btn-info">Details</a>
+                        </div>
+                        <div class="btn-group">
+                            <a href="/movies/delete/${m.id}" type="button" class="btn btn-sm btn-info">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -85,74 +124,3 @@ window.onload = (event) => {
     }
 
 };
-// const displayFoundMovies = (drama) => {
-//
-//     toList.innerHTML = drama
-//         .map((d) => {
-//             console.log(d.imageURL)
-//             return `<div class="col-md-3">
-//                 <div class=" card mb-4 box-shadow">
-//                       <img src="${d.imageUrl}" class="card-img-top" alt="Thumbnail [100%x225]"
-//                  data-holder-rendered="true"
-//                  style="height: 300px; width: 100%; display: block;">
-//                     <div class="card-body">
-//                 <div class="text-center">
-//                     <p class="card-text border-bottom">Title: ${d.title}</p>
-//                     <p class="card-text border-bottom">Country: ${d.country}</p>
-//                     <p class="card-text border-bottom">Episodes: ${d.episodes}</p>
-//                     <p class="card-text border-bottom">Release Date: ${d.releaseDate}</p>
-//                     <p class="card-text border-bottom">Director: ${d.director}</p>
-//                 </div>
-//                 <br>
-//                 <div class="d-flex justify-content-between align-items-center text-dark">
-//                     <div class="btn-group">
-//                         <a href="" type="button" class="btn btn-sm btn-info">Details</a>
-//                     </div>
-//                     <div class="btn-group">
-//                         <a href="" type="button" class="btn btn-sm btn-info">Delete</a>
-//                     </div>
-//                 </div>
-//             </div>
-//                 </div>
-//             </div>`
-//         }).join('');
-//
-// }
-
-// const displayDramasAndMoviesBySearch = (drama) => {
-//     console.log(drama)
-//     toList.innerHTML = drama
-//         .map((d) => {
-//             return `<div class="col-md-3">
-//             <div class=" card mb-4 box-shadow">
-//                 <img src="${d.imageURL}" class="card-img-top" alt="Thumbnail [100%x225]"
-//                      data-holder-rendered="true"
-//                      style="height: 300px; width: 100%; display: block;">
-//                 <div class="card-body">
-//                     <div class="text-center">
-//                         <p class="card-text border-bottom" "${d.title}"></p>
-//                         <p class="card-text border-bottom" "${d.description}"></p>
-//                         <p class="card-text border-bottom"></p>
-//                         <p class="card-text border-bottom"></p>
-//                         <p class="card-text border-bottom"></p>
-//                         <p class="card-text border-bottom">
-//                         <p>
-//                     </div>
-//                     <br>
-//                     <div class="d-flex justify-content-between align-items-center text-dark">
-//                         <div class="btn-group">
-//                             <a href="" type="button" class="btn btn-sm btn-info">Details</a>
-//                         </div>
-//                         <div class="btn-group">
-//                             <a href="" type="button" class="btn btn-sm btn-info">Delete</a>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>`
-//         })
-//         .join('');
-//
-// }
-
-

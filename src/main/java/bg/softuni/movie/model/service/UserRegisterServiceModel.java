@@ -2,6 +2,8 @@ package bg.softuni.movie.model.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+
 public class UserRegisterServiceModel {
 
     private Long id;
@@ -11,6 +13,7 @@ public class UserRegisterServiceModel {
     private String password;
     private String confirmPassword;
     private MultipartFile imageUrl;
+    private LocalDate registeredOn;
 
     public UserRegisterServiceModel() {
     }
@@ -71,6 +74,15 @@ public class UserRegisterServiceModel {
 
     public UserRegisterServiceModel setImageUrl(MultipartFile imageUrl) {
         this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public LocalDate getRegisteredOn() {
+        return registeredOn;
+    }
+
+    public UserRegisterServiceModel setRegisteredOn(LocalDate registeredOn) {
+        this.registeredOn = registeredOn;
         return this;
     }
 }

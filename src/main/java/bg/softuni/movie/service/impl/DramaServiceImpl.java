@@ -1,12 +1,13 @@
 package bg.softuni.movie.service.impl;
 
+import bg.softuni.movie.model.entity.CountryEntity;
 import bg.softuni.movie.model.entity.DramaEntity;
 import bg.softuni.movie.model.entity.GenreEntity;
 import bg.softuni.movie.model.entity.UserEntity;
-import bg.softuni.movie.model.entity.enums.GenreEnum;
 import bg.softuni.movie.model.service.DramaServiceModel;
 import bg.softuni.movie.model.view.DramaViewModel;
 import bg.softuni.movie.repository.DramaRepository;
+import bg.softuni.movie.service.CountryService;
 import bg.softuni.movie.service.DramaService;
 import bg.softuni.movie.service.GenreService;
 import bg.softuni.movie.service.UserService;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,12 +26,14 @@ public class DramaServiceImpl implements DramaService {
     private final DramaRepository dramaRepository;
     private final UserService userService;
     private final GenreService genreService;
+    private final CountryService countryService;
     private final ModelMapper modelMapper;
 
-    public DramaServiceImpl(DramaRepository dramaRepository, UserService userService, GenreService genreService, ModelMapper modelMapper) {
+    public DramaServiceImpl(DramaRepository dramaRepository, UserService userService, GenreService genreService, CountryService countryService, ModelMapper modelMapper) {
         this.dramaRepository = dramaRepository;
         this.userService = userService;
         this.genreService = genreService;
+        this.countryService = countryService;
         this.modelMapper = modelMapper;
     }
 
@@ -46,7 +50,12 @@ public class DramaServiceImpl implements DramaService {
             genreEntities.add(genreEntity);
         });
 
-        dramaEntity.setGenre(genreEntities);
+        CountryEntity countryEntity = countryService.findCountry(dramaServiceModel.getCountry().getName());
+
+        dramaEntity
+                .setCountry(countryEntity)
+                .setGenre(genreEntities)
+                .setAddedOn(LocalDate.now());
 
         UserEntity user = userService.findUser(dramaServiceModel.getUser());
 
@@ -77,7 +86,8 @@ public class DramaServiceImpl implements DramaService {
                             .setGenre(dramaEntity.getGenre())
                             .setDistributor(dramaEntity.getDistributor())
                             .setCountry(dramaEntity.getCountry())
-                            .setCast(dramaEntity.getCast());
+                            .setCast(dramaEntity.getCast())
+                            .setAddedOn(LocalDate.now());
 
                     return dramaViewModel;
                 }).collect(Collectors.toList());
@@ -118,10 +128,17 @@ public class DramaServiceImpl implements DramaService {
                             .setGenre(dramaEntity.getGenre())
                             .setDistributor(dramaEntity.getDistributor())
                             .setCountry(dramaEntity.getCountry())
-                            .setCast(dramaEntity.getCast());
+                            .setCast(dramaEntity.getCast())
+                            .setAddedOn(LocalDate.now());
 
                     return dramaViewModel;
                 }).collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<DramaEntity> findDramaById(Long id) {
+
+        return dramaRepository.findById(id);
     }
 
 }

@@ -19,9 +19,11 @@ public class MovieEntity extends BaseEntity {
     private LocalDate releaseDate;
     private List<GenreEntity> genre;
     private String distributor;
-    private String country;
     private String cast;
     private UserEntity user;
+    private CountryEntity country;
+    private LocalDate addedOn;
+    private List<CommentEntity> comments;
 
     public MovieEntity() {
     }
@@ -107,16 +109,6 @@ public class MovieEntity extends BaseEntity {
         return this;
     }
 
-    @Column(name = "country", nullable = false)
-    public String getCountry() {
-        return country;
-    }
-
-    public MovieEntity setCountry(String country) {
-        this.country = country;
-        return this;
-    }
-
     @Column(name = "cast", nullable = false, columnDefinition = "TEXT")
     public String getCast() {
         return cast;
@@ -138,5 +130,34 @@ public class MovieEntity extends BaseEntity {
         return this;
     }
 
+    @ManyToOne
+    public CountryEntity getCountry() {
+        return country;
+    }
 
+    public MovieEntity setCountry(CountryEntity country) {
+        this.country = country;
+        return this;
+    }
+
+    @Column(name = "added_on", nullable = false)
+    public LocalDate getAddedOn() {
+        return addedOn;
+    }
+
+    public MovieEntity setAddedOn(LocalDate addedOn) {
+        this.addedOn = addedOn;
+        return this;
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    public List<CommentEntity> getComments() {
+        return comments;
+    }
+
+    public MovieEntity setComments(List<CommentEntity> comments) {
+        this.comments = comments;
+        return this;
+    }
 }
