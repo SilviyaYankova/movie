@@ -1,11 +1,13 @@
 package bg.softuni.movie.service.impl;
 
+import bg.softuni.movie.exceptions.ObjectNotFoundException;
 import bg.softuni.movie.model.entity.CountryEntity;
 import bg.softuni.movie.model.entity.DramaEntity;
 import bg.softuni.movie.model.entity.GenreEntity;
 import bg.softuni.movie.model.entity.UserEntity;
 import bg.softuni.movie.model.service.DramaServiceModel;
 import bg.softuni.movie.model.view.DramaViewModel;
+import bg.softuni.movie.repository.CommentRepository;
 import bg.softuni.movie.repository.DramaRepository;
 import bg.softuni.movie.service.CountryService;
 import bg.softuni.movie.service.DramaService;
@@ -17,20 +19,21 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class DramaServiceImpl implements DramaService {
 
     private final DramaRepository dramaRepository;
+    private final CommentRepository commentRepository;
     private final UserService userService;
     private final GenreService genreService;
     private final CountryService countryService;
     private final ModelMapper modelMapper;
 
-    public DramaServiceImpl(DramaRepository dramaRepository, UserService userService, GenreService genreService, CountryService countryService, ModelMapper modelMapper) {
+    public DramaServiceImpl(DramaRepository dramaRepository, CommentRepository commentRepository, UserService userService, GenreService genreService, CountryService countryService, ModelMapper modelMapper) {
         this.dramaRepository = dramaRepository;
+        this.commentRepository = commentRepository;
         this.userService = userService;
         this.genreService = genreService;
         this.countryService = countryService;
@@ -87,7 +90,8 @@ public class DramaServiceImpl implements DramaService {
                             .setDistributor(dramaEntity.getDistributor())
                             .setCountry(dramaEntity.getCountry())
                             .setCast(dramaEntity.getCast())
-                            .setAddedOn(LocalDate.now());
+                            .setAddedOn(LocalDate.now())
+                            .setComments(dramaEntity.getComments());
 
                     return dramaViewModel;
                 }).collect(Collectors.toList());
@@ -96,15 +100,15 @@ public class DramaServiceImpl implements DramaService {
     @Override
     public DramaViewModel findById(Long id) {
         return dramaRepository
-                .findById(id)
-                .map(dramaEntity -> modelMapper
-                        .map(dramaEntity, DramaViewModel.class))
-                .orElseThrow(IllegalArgumentException::new);
-
+               .findById(id)
+               .map(dramaEntity -> modelMapper
+                       .map(dramaEntity, DramaViewModel.class))
+                .orElseThrow(ObjectNotFoundException::new);
     }
 
     @Override
     public void delete(Long id) {
+        commentRepository.deleteCommentsByDramaId(id);
         dramaRepository.deleteById(id);
     }
 
@@ -129,16 +133,18 @@ public class DramaServiceImpl implements DramaService {
                             .setDistributor(dramaEntity.getDistributor())
                             .setCountry(dramaEntity.getCountry())
                             .setCast(dramaEntity.getCast())
-                            .setAddedOn(LocalDate.now());
+                            .setAddedOn(LocalDate.now())
+                            .setComments(dramaEntity.getComments());
 
                     return dramaViewModel;
                 }).collect(Collectors.toList());
     }
 
     @Override
-    public Optional<DramaEntity> findDramaById(Long id) {
-
-        return dramaRepository.findById(id);
+    public DramaEntity findDramaById(Long id) {
+        return dramaRepository
+                .findById(id)
+                .orElseThrow(ObjectNotFoundException::new);
     }
 
 }

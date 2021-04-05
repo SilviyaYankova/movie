@@ -1,13 +1,14 @@
 package bg.softuni.movie.model.view;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class CommentViewModel {
 
     private Long id;
     private String user;
     private String content;
-    private LocalDate addedOn;
+    private LocalDateTime addedOn;
 
     public CommentViewModel() {
     }
@@ -39,11 +40,11 @@ public class CommentViewModel {
         return this;
     }
 
-    public LocalDate getAddedOn() {
+    public LocalDateTime getAddedOn() {
         return addedOn;
     }
 
-    public CommentViewModel setAddedOn(LocalDate addedOn) {
+    public CommentViewModel setAddedOn(LocalDateTime addedOn) {
         this.addedOn = addedOn;
         return this;
     }

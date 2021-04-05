@@ -6,7 +6,6 @@ import bg.softuni.movie.model.service.DramaServiceModel;
 import bg.softuni.movie.model.view.DramaViewModel;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface DramaService {
 
@@ -20,5 +19,5 @@ public interface DramaService {
 
     List<DramaViewModel> displayUserDramas(UserEntity user);
 
-    Optional<DramaEntity> findDramaById(Long id);
+    DramaEntity findDramaById(Long id);
 }

@@ -1,5 +1,6 @@
 package bg.softuni.movie.service.impl;
 
+import bg.softuni.movie.exceptions.ObjectNotFoundException;
 import bg.softuni.movie.model.entity.UserEntity;
 import bg.softuni.movie.model.entity.UserRoleEntity;
 import bg.softuni.movie.model.entity.enums.UserRoleEnum;
@@ -22,22 +23,21 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
-    private final MovieDBUserService movieDBUserService;
+    private final MovieUserService movieUserService;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
     private final CloudinaryService cloudinaryService;
 
-    public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, MovieDBUserService movieDBUserService, PasswordEncoder passwordEncoder, ModelMapper modelMapper, CloudinaryService cloudinaryService) {
+    public UserServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository, MovieUserService movieUserService, PasswordEncoder passwordEncoder, ModelMapper modelMapper, CloudinaryService cloudinaryService) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
-        this.movieDBUserService = movieDBUserService;
+        this.movieUserService = movieUserService;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
         this.cloudinaryService = cloudinaryService;
@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
 
         newUser = userRepository.save(newUser);
 
-        UserDetails principal = movieDBUserService.loadUserByUsername(newUser.getUsername());
+        UserDetails principal = movieUserService.loadUserByUsername(newUser.getUsername());
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(principal,
                 newUser.getPassword(),
@@ -118,7 +118,9 @@ public class UserServiceImpl implements UserService {
         MultipartFile img = userDetailsServiceModel.getImageUrl();
         String imageUrl = cloudinaryService.uploadImage(img);
 
-        UserEntity user = userRepository.findByUsername(username).get();
+        UserEntity user = userRepository.findByUsername(username)
+                .orElseThrow(ObjectNotFoundException::new);
+
         user.setImageUrl(imageUrl);
 
         userRepository.save(user);
@@ -128,7 +130,7 @@ public class UserServiceImpl implements UserService {
     public UserEntity findUser(String username) {
         return userRepository
                 .findByUsername(username)
-                .get();
+                .orElseThrow(ObjectNotFoundException::new);
     }
 
 }

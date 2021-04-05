@@ -1,8 +1,10 @@
 package bg.softuni.movie.model.view;
 
 
+import bg.softuni.movie.model.entity.CommentEntity;
 import bg.softuni.movie.model.entity.CountryEntity;
 import bg.softuni.movie.model.entity.GenreEntity;
+import bg.softuni.movie.model.entity.UserEntity;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,6 +23,8 @@ public class MovieViewModel {
     private String cast;
     private CountryEntity country;
     private LocalDate addedOn;
+    private List<CommentEntity> comments;
+    private UserEntity user;
 
     public MovieViewModel() {
     }
@@ -130,6 +134,24 @@ public class MovieViewModel {
 
     public MovieViewModel setAddedOn(LocalDate addedOn) {
         this.addedOn = addedOn;
+        return this;
+    }
+
+    public List<CommentEntity> getComments() {
+        return comments;
+    }
+
+    public MovieViewModel setComments(List<CommentEntity> comments) {
+        this.comments = comments;
+        return this;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public MovieViewModel setUser(UserEntity user) {
+        this.user = user;
         return this;
     }
 }

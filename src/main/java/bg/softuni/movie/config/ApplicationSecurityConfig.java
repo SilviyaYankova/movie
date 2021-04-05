@@ -1,6 +1,6 @@
 package bg.softuni.movie.config;
 
-import bg.softuni.movie.service.impl.MovieDBUserService;
+import bg.softuni.movie.service.impl.MovieUserService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,11 +14,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final MovieDBUserService movieDBUserService;
+    private final MovieUserService movieUserService;
     private final PasswordEncoder passwordEncoder;
 
-    public ApplicationSecurityConfig(MovieDBUserService movieDBUserService, PasswordEncoder passwordEncoder) {
-        this.movieDBUserService = movieDBUserService;
+    public ApplicationSecurityConfig(MovieUserService movieUserService, PasswordEncoder passwordEncoder) {
+        this.movieUserService = movieUserService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -49,7 +49,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.
-                userDetailsService(movieDBUserService)
+                userDetailsService(movieUserService)
                 .passwordEncoder(passwordEncoder);
     }
 }

@@ -1,5 +1,6 @@
 package bg.softuni.movie.service.impl;
 
+import bg.softuni.movie.exceptions.ObjectNotFoundException;
 import bg.softuni.movie.model.entity.*;
 import bg.softuni.movie.model.service.MovieServiceModel;
 import bg.softuni.movie.model.view.MovieViewModel;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -93,7 +95,7 @@ public class MovieServiceImpl implements MovieService {
                 .findById(id)
                 .map(movieEntity -> modelMapper
                         .map(movieEntity, MovieViewModel.class))
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(ObjectNotFoundException::new);
     }
 
     @Override
@@ -126,5 +128,12 @@ public class MovieServiceImpl implements MovieService {
 
                     return movieViewModel;
                 }).collect(Collectors.toList());
+    }
+
+    @Override
+    public MovieEntity findMovieById(Long id) {
+        return movieRepository
+                .findById(id)
+                .orElseThrow(ObjectNotFoundException::new);
     }
 }

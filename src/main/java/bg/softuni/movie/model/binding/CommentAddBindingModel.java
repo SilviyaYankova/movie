@@ -4,12 +4,13 @@ import bg.softuni.movie.model.entity.UserEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class CommentAddBindingModel {
 
     private UserEntity user;
     private String content;
-    private LocalDate addedOn;
+    private LocalDateTime addedOn;
 
     public CommentAddBindingModel() {
     }
@@ -31,12 +32,12 @@ public class CommentAddBindingModel {
         return this;
     }
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public LocalDate getAddedOn() {
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    public LocalDateTime getAddedOn() {
         return addedOn;
     }
 
-    public CommentAddBindingModel setAddedOn(LocalDate addedOn) {
+    public CommentAddBindingModel setAddedOn(LocalDateTime addedOn) {
         this.addedOn = addedOn;
         return this;
     }

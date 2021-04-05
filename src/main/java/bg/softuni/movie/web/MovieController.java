@@ -1,8 +1,11 @@
 package bg.softuni.movie.web;
 
+import bg.softuni.movie.model.binding.CommentAddBindingModel;
 import bg.softuni.movie.model.binding.MovieAddBindingModel;
+import bg.softuni.movie.model.service.CommentServiceModel;
 import bg.softuni.movie.model.service.MovieServiceModel;
 import bg.softuni.movie.model.view.MovieViewModel;
+import bg.softuni.movie.service.CommentService;
 import bg.softuni.movie.service.MovieService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,11 +22,14 @@ import java.util.List;
 @RequestMapping("/movies")
 public class MovieController {
 
+    private Long movieId;
     private final MovieService movieService;
+    private final CommentService commentService;
     private final ModelMapper modelMapper;
 
-    public MovieController(MovieService movieService, ModelMapper modelMapper) {
+    public MovieController(MovieService movieService, CommentService commentService, ModelMapper modelMapper) {
         this.movieService = movieService;
+        this.commentService = commentService;
         this.modelMapper = modelMapper;
     }
 
@@ -41,7 +47,6 @@ public class MovieController {
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes,
                            @AuthenticationPrincipal UserDetails principal) {
-
 
         if(bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("movieAddBindingModel", movieAddBindingModel);
@@ -78,6 +83,8 @@ public class MovieController {
 
         model.addAttribute("movieDetails", movieViewModel);
 
+        movieId = movieViewModel.getId();
+
         return "movie-details";
     }
 
@@ -86,5 +93,40 @@ public class MovieController {
         movieService.delete(id);
 
         return "redirect:/movies/all-movies";
+    }
+
+    @GetMapping("/add-comment")
+    public String addComment(Model model) {
+
+        if (!model.containsAttribute("commentAddBindingModel")) {
+            model.addAttribute("commentAddBindingModel", new CommentAddBindingModel());
+        }
+
+        return "movie-details";
+    }
+
+    @PostMapping("/add-comment")
+    public String addComment(@ModelAttribute("commentAddBindingModel") @Valid CommentAddBindingModel commentAddBindingModel,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes,
+                             @AuthenticationPrincipal UserDetails principal) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("commentAddBindingModel");
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.commentAddBindingModel", bindingResult);
+
+            return "redirect:/movies/movie-details/" + movieId;
+        }
+
+        CommentServiceModel commentServiceModel = modelMapper
+                .map(commentAddBindingModel, CommentServiceModel.class);
+
+        commentServiceModel.setUser(principal.getUsername());
+
+        MovieViewModel movie = movieService.findById(movieId);
+
+        commentService.addMovieComment(commentServiceModel, movie);
+
+        return "redirect:/movies/movie-details/" + movieId;
     }
 }

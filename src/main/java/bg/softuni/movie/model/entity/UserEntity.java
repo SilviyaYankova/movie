@@ -20,7 +20,6 @@ public class UserEntity extends BaseEntity {
     private List<UserRoleEntity> roles = new ArrayList<>();
     private List<DramaEntity> dramas = new ArrayList<>();
     private List<MovieEntity> movies = new ArrayList<>();
-    private CountryEntity country;
     private LocalDate registeredOn;
 
     public UserEntity() {
@@ -111,16 +110,6 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity setMovies(List<MovieEntity> movies) {
         this.movies = movies;
-        return this;
-    }
-
-    @ManyToOne
-    public CountryEntity getCountry() {
-        return country;
-    }
-
-    public UserEntity setCountry(CountryEntity country) {
-        this.country = country;
         return this;
     }
 

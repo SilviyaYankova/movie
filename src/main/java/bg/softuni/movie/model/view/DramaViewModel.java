@@ -4,6 +4,7 @@ package bg.softuni.movie.model.view;
 import bg.softuni.movie.model.entity.CommentEntity;
 import bg.softuni.movie.model.entity.CountryEntity;
 import bg.softuni.movie.model.entity.GenreEntity;
+import bg.softuni.movie.model.entity.UserEntity;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,6 +25,7 @@ public class DramaViewModel {
     private CountryEntity country;
     private LocalDate addedOn;
     private List<CommentEntity> comments;
+    private UserEntity user;
 
     public DramaViewModel() {
     }
@@ -151,6 +153,15 @@ public class DramaViewModel {
 
     public DramaViewModel setComments(List<CommentEntity> comments) {
         this.comments = comments;
+        return this;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public DramaViewModel setUser(UserEntity user) {
+        this.user = user;
         return this;
     }
 }

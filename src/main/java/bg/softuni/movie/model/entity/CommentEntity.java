@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "comments")
@@ -12,7 +13,7 @@ public class CommentEntity extends BaseEntity{
 
     private UserEntity userEntity;
     private String content;
-    private LocalDate addedOn;
+    private LocalDateTime addedOn;
 
     public CommentEntity() {
     }
@@ -38,11 +39,11 @@ public class CommentEntity extends BaseEntity{
     }
 
     @Column(name = "added_on")
-    public LocalDate getAddedOn() {
+    public LocalDateTime getAddedOn() {
         return addedOn;
     }
 
-    public CommentEntity setAddedOn(LocalDate addedOn) {
+    public CommentEntity setAddedOn(LocalDateTime addedOn) {
         this.addedOn = addedOn;
         return this;
     }

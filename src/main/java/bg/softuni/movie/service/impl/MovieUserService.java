@@ -14,11 +14,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class MovieDBUserService implements UserDetailsService {
+public class MovieUserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    public MovieDBUserService(UserRepository userRepository) {
+    public MovieUserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

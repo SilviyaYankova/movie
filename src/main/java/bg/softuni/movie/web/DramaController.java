@@ -16,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -35,18 +34,15 @@ public class DramaController {
         this.modelMapper = modelMapper;
     }
 
-
     @GetMapping("/add-drama")
     public String addDrama(Model model) {
 
         if (!model.containsAttribute("dramaAddBindingModel")) {
             model.addAttribute("dramaAddBindingModel", new DramaAddBindingModel());
-
         }
 
         return "add-drama";
     }
-
 
     @PostMapping("/add-drama")
     public String addDrama(@ModelAttribute("dramaAddBindingModel") @Valid DramaAddBindingModel dramaAddBindingModel,
@@ -60,7 +56,6 @@ public class DramaController {
 
             return "redirect:add-drama";
         }
-
 
         DramaServiceModel dramaServiceModel = modelMapper
                 .map(dramaAddBindingModel, DramaServiceModel.class);
@@ -96,7 +91,7 @@ public class DramaController {
 
         model.addAttribute("dramaDetails", dramaViewModel);
 
-        dramaId =  dramaViewModel.getId();
+        dramaId = dramaViewModel.getId();
 
         return "drama-details";
     }
@@ -118,12 +113,11 @@ public class DramaController {
                              RedirectAttributes redirectAttributes,
                              @AuthenticationPrincipal UserDetails principal) {
 
-
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("commentAddBindingModel");
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.commentAddBindingModel", bindingResult);
 
-            return "drama-details";
+            return "redirect:/dramas/drama-details/" + dramaId;
         }
 
         CommentServiceModel commentServiceModel = modelMapper
@@ -133,8 +127,8 @@ public class DramaController {
 
         DramaViewModel drama = dramaService.findById(dramaId);
 
-        commentService.addComment(commentServiceModel, drama);
+        commentService.addDramaComment(commentServiceModel, drama);
 
-        return "redirect:/dramas/all-dramas";
+        return "redirect:/dramas/drama-details/" + dramaId;
     }
 }

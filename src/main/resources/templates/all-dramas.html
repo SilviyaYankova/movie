@@ -29,7 +29,6 @@
                         <p class="card-text border-bottom">Genre:
                             <span th:each="g, iterStat : *{genre}" th:if="${iterStat.index <= 1}"
                                   th:text="${!iterStat.last} ? ${g.name} + ', ': ${g.name}"></span></p>
-                        <!--                        <span th:each="g, iterStat : *{genre}" th:text="${!iterStat.last} ? ${g.name} + ', ': ${g.name}"></span></p>-->
                     </div>
                     <br>
                     <div class="d-flex justify-content-between align-items-center text-dark">

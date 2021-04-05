@@ -1,12 +1,13 @@
 package bg.softuni.movie.model.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class CommentServiceModel {
 
     private String user;
     private String content;
-    private LocalDate addedOn;
+    private LocalDateTime addedOn;
 
     public CommentServiceModel() {
     }
@@ -29,13 +30,12 @@ public class CommentServiceModel {
         return this;
     }
 
-    public LocalDate getAddedOn() {
+    public LocalDateTime getAddedOn() {
         return addedOn;
     }
 
-    public CommentServiceModel setAddedOn(LocalDate addedOn) {
+    public CommentServiceModel setAddedOn(LocalDateTime addedOn) {
         this.addedOn = addedOn;
         return this;
     }
-
 }
