@@ -12,7 +12,7 @@
 <main class="p-5 align-content-center bg-blur">
 
     <th:block th:if="${!allDramas.isEmpty()}">
-    <h2>All dramas</h2>
+    <h2>Drama Catalogue</h2>
     <div class="row mt-5" id="dramaList">
         <div class="col-md-3" th:each="d : ${allDramas}" th:object="${d}">
             <div class=" card mb-4 box-shadow">

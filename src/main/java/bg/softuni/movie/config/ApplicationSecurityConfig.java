@@ -28,6 +28,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers("/", "/users/login", "/users/register").permitAll()
+                .antMatchers("/users/roles/add").hasRole("ADMIN")
                 .antMatchers("/**").authenticated()
                 .and()
                 .formLogin()
@@ -43,7 +44,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID");
-
     }
 
     @Override

@@ -7,7 +7,7 @@ import bg.softuni.movie.model.entity.UserRoleEntity;
 import java.time.LocalDate;
 import java.util.List;
 
-public class UserDetailsViewModel {
+public class UserViewModel {
 
     private String id;
     private String username;
@@ -23,7 +23,7 @@ public class UserDetailsViewModel {
         return id;
     }
 
-    public UserDetailsViewModel setId(String id) {
+    public UserViewModel setId(String id) {
         this.id = id;
         return this;
     }
@@ -32,7 +32,7 @@ public class UserDetailsViewModel {
         return username;
     }
 
-    public UserDetailsViewModel setUsername(String username) {
+    public UserViewModel setUsername(String username) {
         this.username = username;
         return this;
     }
@@ -41,7 +41,7 @@ public class UserDetailsViewModel {
         return fullName;
     }
 
-    public UserDetailsViewModel setFullName(String fullName) {
+    public UserViewModel setFullName(String fullName) {
         this.fullName = fullName;
         return this;
     }
@@ -51,7 +51,7 @@ public class UserDetailsViewModel {
         return email;
     }
 
-    public UserDetailsViewModel setEmail(String email) {
+    public UserViewModel setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -61,7 +61,7 @@ public class UserDetailsViewModel {
         return roles;
     }
 
-    public UserDetailsViewModel setRoles(List<UserRoleEntity> roles) {
+    public UserViewModel setRoles(List<UserRoleEntity> roles) {
         this.roles = roles;
         return this;
     }
@@ -70,7 +70,7 @@ public class UserDetailsViewModel {
         return dramas;
     }
 
-    public UserDetailsViewModel setDramas(List<DramaEntity> dramas) {
+    public UserViewModel setDramas(List<DramaEntity> dramas) {
         this.dramas = dramas;
         return this;
     }
@@ -79,7 +79,7 @@ public class UserDetailsViewModel {
         return movies;
     }
 
-    public UserDetailsViewModel setMovies(List<MovieEntity> movies) {
+    public UserViewModel setMovies(List<MovieEntity> movies) {
         this.movies = movies;
         return this;
     }
@@ -88,7 +88,7 @@ public class UserDetailsViewModel {
         return imageUrl;
     }
 
-    public UserDetailsViewModel setImageUrl(String imageUrl) {
+    public UserViewModel setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
         return this;
     }
@@ -97,7 +97,7 @@ public class UserDetailsViewModel {
         return registeredOn;
     }
 
-    public UserDetailsViewModel setRegisteredOn(LocalDate registeredOn) {
+    public UserViewModel setRegisteredOn(LocalDate registeredOn) {
         this.registeredOn = registeredOn;
         return this;
     }

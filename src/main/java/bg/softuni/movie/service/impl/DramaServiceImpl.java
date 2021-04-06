@@ -25,15 +25,13 @@ import java.util.stream.Collectors;
 public class DramaServiceImpl implements DramaService {
 
     private final DramaRepository dramaRepository;
-    private final CommentRepository commentRepository;
     private final UserService userService;
     private final GenreService genreService;
     private final CountryService countryService;
     private final ModelMapper modelMapper;
 
-    public DramaServiceImpl(DramaRepository dramaRepository, CommentRepository commentRepository, UserService userService, GenreService genreService, CountryService countryService, ModelMapper modelMapper) {
+    public DramaServiceImpl(DramaRepository dramaRepository, UserService userService, GenreService genreService, CountryService countryService, ModelMapper modelMapper) {
         this.dramaRepository = dramaRepository;
-        this.commentRepository = commentRepository;
         this.userService = userService;
         this.genreService = genreService;
         this.countryService = countryService;
@@ -45,7 +43,6 @@ public class DramaServiceImpl implements DramaService {
 
         DramaEntity dramaEntity = modelMapper
                 .map(dramaServiceModel, DramaEntity.class);
-
 
         List<GenreEntity> genreEntities = new ArrayList<>();
         dramaServiceModel.getGenre().forEach(g -> {
@@ -108,7 +105,6 @@ public class DramaServiceImpl implements DramaService {
 
     @Override
     public void delete(Long id) {
-        commentRepository.deleteCommentsByDramaId(id);
         dramaRepository.deleteById(id);
     }
 

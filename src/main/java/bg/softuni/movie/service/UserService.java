@@ -1,10 +1,12 @@
 package bg.softuni.movie.service;
 
 import bg.softuni.movie.model.entity.UserEntity;
-import bg.softuni.movie.model.service.UserDetailsServiceModel;
+import bg.softuni.movie.model.service.UserServiceModel;
 import bg.softuni.movie.model.service.UserRegisterServiceModel;
+import bg.softuni.movie.model.view.UserViewModel;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface UserService {
 
@@ -16,7 +18,13 @@ public interface UserService {
 
     boolean emailAlreadyExists(String username);
 
-    void addPicture(UserDetailsServiceModel userDetailsServiceModel, String username) throws IOException;
+    void addPicture(UserServiceModel userServiceModel, String username) throws IOException;
 
     UserEntity findUser(String username);
+
+    List<UserViewModel> getAllUsers();
+
+    void grantAuthority(Long userId, String newRole);
+
+    UserEntity findUserById(Long userId);
 }

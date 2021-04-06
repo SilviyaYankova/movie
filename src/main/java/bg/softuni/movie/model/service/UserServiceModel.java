@@ -8,7 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDetailsServiceModel {
+public class UserServiceModel {
+
     private String username;
     private String fullName;
     private String password;
@@ -18,14 +19,14 @@ public class UserDetailsServiceModel {
     private List<MovieEntity> favouriteMovies = new ArrayList<>();
     private List<DramaEntity> favouriteDramas = new ArrayList<>();
 
-    public UserDetailsServiceModel() {
+    public UserServiceModel() {
     }
 
     public String getUsername() {
         return username;
     }
 
-    public UserDetailsServiceModel setUsername(String username) {
+    public UserServiceModel setUsername(String username) {
         this.username = username;
         return this;
     }
@@ -34,7 +35,7 @@ public class UserDetailsServiceModel {
         return fullName;
     }
 
-    public UserDetailsServiceModel setFullName(String fullName) {
+    public UserServiceModel setFullName(String fullName) {
         this.fullName = fullName;
         return this;
     }
@@ -43,7 +44,7 @@ public class UserDetailsServiceModel {
         return password;
     }
 
-    public UserDetailsServiceModel setPassword(String password) {
+    public UserServiceModel setPassword(String password) {
         this.password = password;
         return this;
     }
@@ -52,7 +53,7 @@ public class UserDetailsServiceModel {
         return email;
     }
 
-    public UserDetailsServiceModel setEmail(String email) {
+    public UserServiceModel setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -61,7 +62,7 @@ public class UserDetailsServiceModel {
         return imageUrl;
     }
 
-    public UserDetailsServiceModel setImageUrl(MultipartFile imageUrl) {
+    public UserServiceModel setImageUrl(MultipartFile imageUrl) {
         this.imageUrl = imageUrl;
         return this;
     }
@@ -70,7 +71,7 @@ public class UserDetailsServiceModel {
         return roles;
     }
 
-    public UserDetailsServiceModel setRoles(List<UserRoleEntity> roles) {
+    public UserServiceModel setRoles(List<UserRoleEntity> roles) {
         this.roles = roles;
         return this;
     }
@@ -79,7 +80,7 @@ public class UserDetailsServiceModel {
         return favouriteMovies;
     }
 
-    public UserDetailsServiceModel setFavouriteMovies(List<MovieEntity> favouriteMovies) {
+    public UserServiceModel setFavouriteMovies(List<MovieEntity> favouriteMovies) {
         this.favouriteMovies = favouriteMovies;
         return this;
     }
@@ -88,7 +89,7 @@ public class UserDetailsServiceModel {
         return favouriteDramas;
     }
 
-    public UserDetailsServiceModel setFavouriteDramas(List<DramaEntity> favouriteDramas) {
+    public UserServiceModel setFavouriteDramas(List<DramaEntity> favouriteDramas) {
         this.favouriteDramas = favouriteDramas;
         return this;
     }

@@ -4,8 +4,9 @@ import bg.softuni.movie.exceptions.ObjectNotFoundException;
 import bg.softuni.movie.model.entity.UserEntity;
 import bg.softuni.movie.model.entity.UserRoleEntity;
 import bg.softuni.movie.model.entity.enums.UserRoleEnum;
-import bg.softuni.movie.model.service.UserDetailsServiceModel;
+import bg.softuni.movie.model.service.UserServiceModel;
 import bg.softuni.movie.model.service.UserRegisterServiceModel;
+import bg.softuni.movie.model.view.UserViewModel;
 import bg.softuni.movie.repository.UserRepository;
 import bg.softuni.movie.repository.UserRoleRepository;
 import bg.softuni.movie.service.CloudinaryService;
@@ -23,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -94,7 +97,8 @@ public class UserServiceImpl implements UserService {
 
         UserDetails principal = movieUserService.loadUserByUsername(newUser.getUsername());
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(principal,
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                principal,
                 newUser.getPassword(),
                 principal.getAuthorities());
 
@@ -114,8 +118,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addPicture(UserDetailsServiceModel userDetailsServiceModel, String username) throws IOException {
-        MultipartFile img = userDetailsServiceModel.getImageUrl();
+    public void addPicture(UserServiceModel userServiceModel, String username) throws IOException {
+        MultipartFile img = userServiceModel.getImageUrl();
         String imageUrl = cloudinaryService.uploadImage(img);
 
         UserEntity user = userRepository.findByUsername(username)
@@ -130,6 +134,57 @@ public class UserServiceImpl implements UserService {
     public UserEntity findUser(String username) {
         return userRepository
                 .findByUsername(username)
+                .orElseThrow(ObjectNotFoundException::new);
+    }
+
+    @Override
+    public List<UserViewModel> getAllUsers() {
+        return userRepository
+                .findAll()
+                .stream()
+                .map(userEntity -> modelMapper.map(userEntity, UserViewModel.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void grantAuthority(Long userId, String newRole) {
+
+        newRole = newRole.toUpperCase();
+
+        UserEntity userEntity = userRepository
+                .findById(userId)
+                .orElseThrow(ObjectNotFoundException::new);
+
+        UserRoleEntity adminRole = userRoleRepository
+                .findByRole(UserRoleEnum.ADMIN)
+                .orElseThrow(ObjectNotFoundException::new);
+
+        UserRoleEntity userRole = userRoleRepository
+                .findByRole(UserRoleEnum.USER)
+                .orElseThrow(ObjectNotFoundException::new);
+
+        System.out.println();
+
+        String admin = adminRole.getRole().name();
+        String user = userRole.getRole().name();
+
+        if (admin.equals(newRole)) {
+            System.out.println();
+            userEntity.setRoles(List.of(adminRole));
+        } else {
+            System.out.println();
+            userEntity.setRoles(List.of(userRole));
+        }
+
+
+        System.out.println();
+        userRepository.save(userEntity);
+    }
+
+    @Override
+    public UserEntity findUserById(Long userId) {
+        return userRepository
+                .findById(userId)
                 .orElseThrow(ObjectNotFoundException::new);
     }
 
