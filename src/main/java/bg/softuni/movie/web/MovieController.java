@@ -78,7 +78,7 @@ public class MovieController {
     }
 
     @GetMapping("/movie-details/{id}")
-    public String dramaDetails(@PathVariable Long id, Model model) {
+    public String movieDetails(@PathVariable Long id, Model model) {
 
         MovieViewModel movieViewModel = movieService.findById(id);
 
