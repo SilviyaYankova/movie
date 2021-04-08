@@ -5,7 +5,7 @@ import bg.softuni.movie.model.binding.MovieAddBindingModel;
 import bg.softuni.movie.model.service.CommentServiceModel;
 import bg.softuni.movie.model.service.MovieServiceModel;
 import bg.softuni.movie.model.view.MovieViewModel;
-import bg.softuni.movie.service.CommentService;
+import bg.softuni.movie.service.MovieCommentService;
 import bg.softuni.movie.service.MovieService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -24,12 +25,12 @@ public class MovieController {
 
     private Long movieId;
     private final MovieService movieService;
-    private final CommentService commentService;
+    private final MovieCommentService movieCommentService;
     private final ModelMapper modelMapper;
 
-    public MovieController(MovieService movieService, CommentService commentService, ModelMapper modelMapper) {
+    public MovieController(MovieService movieService, MovieCommentService movieCommentService, ModelMapper modelMapper) {
         this.movieService = movieService;
-        this.commentService = commentService;
+        this.movieCommentService = movieCommentService;
         this.modelMapper = modelMapper;
     }
 
@@ -48,7 +49,7 @@ public class MovieController {
                            RedirectAttributes redirectAttributes,
                            @AuthenticationPrincipal UserDetails principal) {
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("movieAddBindingModel", movieAddBindingModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.movieAddBindingModel", bindingResult);
 
@@ -125,7 +126,7 @@ public class MovieController {
 
         MovieViewModel movie = movieService.findById(movieId);
 
-        commentService.addMovieComment(commentServiceModel, movie);
+        movieCommentService.addMovieComment(commentServiceModel, movie);
 
         return "redirect:/movies/movie-details/" + movieId;
     }

@@ -24,12 +24,12 @@ public class DramaEntity extends BaseEntity {
     private UserEntity user;
     private CountryEntity country;
     private LocalDate addedOn;
-    private List<CommentEntity> comments;
+    private List<DramaCommentEntity> comments;
 
     public DramaEntity() {
     }
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "title", nullable = false)
     public String getTitle() {
         return title;
     }
@@ -162,11 +162,11 @@ public class DramaEntity extends BaseEntity {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
-    public List<CommentEntity> getComments() {
+    public List<DramaCommentEntity> getComments() {
         return comments;
     }
 
-    public DramaEntity setComments(List<CommentEntity> comments) {
+    public DramaEntity setComments(List<DramaCommentEntity> comments) {
         this.comments = comments;
         return this;
     }

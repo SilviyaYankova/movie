@@ -1,12 +1,11 @@
 package bg.softuni.movie.model.service;
 
-import bg.softuni.movie.model.entity.CommentEntity;
+import bg.softuni.movie.model.entity.DramaCommentEntity;
 import bg.softuni.movie.model.entity.CountryEntity;
 import bg.softuni.movie.model.entity.enums.GenreEnum;
 
 import java.time.LocalDate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DramaServiceModel {
@@ -24,7 +23,7 @@ public class DramaServiceModel {
     private String user;
     private CountryEntity country;
     private LocalDate addedOn;
-    private List<CommentEntity> comments;
+    private List<DramaCommentEntity> comments;
 
     public DramaServiceModel() {
     }
@@ -147,11 +146,11 @@ public class DramaServiceModel {
     }
 
 
-    public List<CommentEntity> getComments() {
+    public List<DramaCommentEntity> getComments() {
         return comments;
     }
 
-    public DramaServiceModel setComments(List<CommentEntity> comments) {
+    public DramaServiceModel setComments(List<DramaCommentEntity> comments) {
         this.comments = comments;
         return this;
     }

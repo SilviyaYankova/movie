@@ -10,7 +10,7 @@
 <header th:replace="fragments/nav"></header>
 
 <main class="p-5 align-content-center bg-blur">
-
+    <th:block th:if="${!userMovies.isEmpty()}">
     <h2>My movies</h2>
     <div class="row mt-5" id="dramaList">
         <div class="col-md-3" th:each="d : ${userMovies}" th:object="${d}">
@@ -21,7 +21,7 @@
                 <div class="card-body">
                     <div class="text-center">
                         <p class="card-text border-bottom" th:text="|Title: *{title}|"></p>
-                        <p class="card-text border-bottom" th:text="|Country: *{country}|"></p>
+                        <p class="card-text border-bottom" th:text="|Country: *{country.name}|"></p>
                         <p class="card-text border-bottom" th:text="|Release Date: *{releaseDate}|"> </p>
                         <p class="card-text border-bottom" th:text="|Director: *{director}|"></p>
                         <p class="card-text border-bottom" >Genre:
@@ -31,10 +31,10 @@
                     <br>
                     <div  class="d-flex justify-content-between align-items-center text-dark">
                         <div class="btn-group">
-                            <a th:href="@{/dramas/drama-details/{id}(id = *{id})}" type="button" class="btn btn-sm btn-info">Details</a>
+                            <a th:href="@{/movies/movie-details/{id}(id = *{id})}" type="button" class="btn btn-sm btn-info">Details</a>
                         </div>
                         <div class="btn-group">
-                            <a th:href="@{/dramas/delete/{id}(id = *{id})}" type="button" class="btn btn-sm btn-info">Delete</a>
+                            <a th:href="@{/movies/movie/{id}(id = *{id})}" type="button" class="btn btn-sm btn-info">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -42,18 +42,9 @@
         </div>
 
     </div>
-
+    </th:block>
 </main>
-<th:block sec:authorize="!isAuthenticated()">
-    <br><br><br><br><br><br><br>
-    <footer id="footer1" class="py-4 bg-dark">
-        <div class="container-fluid text-center">
-            <p class="m-0 text-center"  style="color: orange">Copyright &copy; Asian Movie Database 2021</p>
-        </div>
-        <!-- /.container -->
-    </footer>
-</th:block>
-<footer sec:authorize="isAuthenticated()" th:replace="fragments/footer"></footer>
+<footer th:replace="fragments/footer"></footer>
 </body>
 
 </html>

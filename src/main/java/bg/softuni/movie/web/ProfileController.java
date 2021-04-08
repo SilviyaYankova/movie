@@ -58,6 +58,16 @@ public class ProfileController {
         model.addAttribute("user", userViewModel);
         model.addAttribute("userRoles", userRoles);
 
+        UserEntity user = userService.findUser(username);
+
+        List<DramaViewModel> userDramas = dramaService.displayUserDramas(user);
+
+        model.addAttribute("userDramas", userDramas);
+
+        List<MovieViewModel> userMovies = movieService.displayUserMovies(user);
+
+        model.addAttribute("userMovies", userMovies);
+
         return "profile";
     }
 
@@ -85,6 +95,10 @@ public class ProfileController {
 
         model.addAttribute("userDramas", userDramas);
 
+        if (userDramas.size() == 0) {
+            return "redirect:/dramas/add-drama";
+        }
+
         return "my-dramas";
     }
 
@@ -100,6 +114,9 @@ public class ProfileController {
 
         model.addAttribute("userMovies", userMovies);
 
+        if (userMovies.size() == 0) {
+            return "redirect:/movies/add-movie";
+        }
         return "my-movies";
     }
 }

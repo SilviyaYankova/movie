@@ -22,4 +22,5 @@ public interface MovieService {
     MovieEntity findMovieById(Long id);
 
 
+    void seedMovies();
 }

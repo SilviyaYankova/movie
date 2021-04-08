@@ -48,16 +48,16 @@
                             <span th:text="|*{email}|"></span>
                         </div>
 
-<!--                        <div>-->
-<!--                            <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Dramas:</label>-->
-<!--                                <a style="color: orange" th:href="@{/dramas/my-dramas}" th:text="|*{getDramas().size()}|"></a>-->
+                        <div>
+                            <label  class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Added Dramas:</label>
+                                <a style="color: orange" th:href="@{/users/my-dramas}"  th:text="|${userDramas.size()}|"></a>
 
-<!--                        </div>-->
+                        </div>
 
-<!--                        <div>-->
-<!--                            <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Favourite Movies:</label>-->
-<!--                            <a style="color: orange" th:href="@{/dramas/my-movies}" th:text="|*{getMovies().size()}|"></a>-->
-<!--                        </div>-->
+                        <div>
+                            <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Added Movies:</label>
+                            <a style="color: orange" th:href="@{/users/my-movies}" th:text="|${userMovies.size()}|"></a>
+                        </div>
 
                     </div>
 

@@ -4,18 +4,17 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "comments")
-public class CommentEntity extends BaseEntity{
+@Table(name = "movie_comments")
+public class MovieCommentEntity extends BaseEntity{
 
     private UserEntity userEntity;
     private String content;
     private LocalDateTime addedOn;
 
-    public CommentEntity() {
+    public MovieCommentEntity() {
     }
 
     @OneToOne
@@ -23,7 +22,7 @@ public class CommentEntity extends BaseEntity{
         return userEntity;
     }
 
-    public CommentEntity setUserEntity(UserEntity userEntity) {
+    public MovieCommentEntity setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
         return this;
     }
@@ -33,7 +32,7 @@ public class CommentEntity extends BaseEntity{
         return content;
     }
 
-    public CommentEntity setContent(String content) {
+    public MovieCommentEntity setContent(String content) {
         this.content = content;
         return this;
     }
@@ -43,7 +42,7 @@ public class CommentEntity extends BaseEntity{
         return addedOn;
     }
 
-    public CommentEntity setAddedOn(LocalDateTime addedOn) {
+    public MovieCommentEntity setAddedOn(LocalDateTime addedOn) {
         this.addedOn = addedOn;
         return this;
     }

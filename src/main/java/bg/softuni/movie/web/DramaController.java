@@ -5,7 +5,7 @@ import bg.softuni.movie.model.binding.DramaAddBindingModel;
 import bg.softuni.movie.model.service.CommentServiceModel;
 import bg.softuni.movie.model.service.DramaServiceModel;
 import bg.softuni.movie.model.view.DramaViewModel;
-import bg.softuni.movie.service.CommentService;
+import bg.softuni.movie.service.DramaCommentService;
 import bg.softuni.movie.service.DramaService;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,12 +25,12 @@ public class DramaController {
 
     private Long dramaId;
     private final DramaService dramaService;
-    private final CommentService commentService;
+    private final DramaCommentService dramaCommentService;
     private final ModelMapper modelMapper;
 
-    public DramaController(DramaService dramaService, CommentService commentService, ModelMapper modelMapper) {
+    public DramaController(DramaService dramaService, DramaCommentService dramaCommentService, ModelMapper modelMapper) {
         this.dramaService = dramaService;
-        this.commentService = commentService;
+        this.dramaCommentService = dramaCommentService;
         this.modelMapper = modelMapper;
     }
 
@@ -127,7 +127,7 @@ public class DramaController {
 
         DramaViewModel drama = dramaService.findById(dramaId);
 
-        commentService.addDramaComment(commentServiceModel, drama);
+        dramaCommentService.addDramaComment(commentServiceModel, drama);
 
         return "redirect:/dramas/drama-details/" + dramaId;
     }

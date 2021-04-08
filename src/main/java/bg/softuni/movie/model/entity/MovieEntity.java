@@ -23,12 +23,12 @@ public class MovieEntity extends BaseEntity {
     private UserEntity user;
     private CountryEntity country;
     private LocalDate addedOn;
-    private List<CommentEntity> comments;
+    private List<MovieCommentEntity> comments;
 
     public MovieEntity() {
     }
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "title", nullable = false)
     public String getTitle() {
         return title;
     }
@@ -152,11 +152,11 @@ public class MovieEntity extends BaseEntity {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
-    public List<CommentEntity> getComments() {
+    public List<MovieCommentEntity> getComments() {
         return comments;
     }
 
-    public MovieEntity setComments(List<CommentEntity> comments) {
+    public MovieEntity setComments(List<MovieCommentEntity> comments) {
         this.comments = comments;
         return this;
     }

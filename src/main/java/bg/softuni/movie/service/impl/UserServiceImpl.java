@@ -139,11 +139,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserViewModel> getAllUsers() {
-        return userRepository
+        List<UserViewModel> allUsers =  userRepository
                 .findAll()
                 .stream()
                 .map(userEntity -> modelMapper.map(userEntity, UserViewModel.class))
                 .collect(Collectors.toList());
+
+        allUsers.remove(0);
+
+        return allUsers;
     }
 
     @Override
@@ -163,21 +167,16 @@ public class UserServiceImpl implements UserService {
                 .findByRole(UserRoleEnum.USER)
                 .orElseThrow(ObjectNotFoundException::new);
 
-        System.out.println();
 
         String admin = adminRole.getRole().name();
         String user = userRole.getRole().name();
 
         if (admin.equals(newRole)) {
-            System.out.println();
-            userEntity.setRoles(List.of(adminRole));
+            userEntity.setRoles(List.of(adminRole, userRole));
         } else {
-            System.out.println();
             userEntity.setRoles(List.of(userRole));
         }
 
-
-        System.out.println();
         userRepository.save(userEntity);
     }
 
@@ -187,5 +186,4 @@ public class UserServiceImpl implements UserService {
                 .findById(userId)
                 .orElseThrow(ObjectNotFoundException::new);
     }
-
 }

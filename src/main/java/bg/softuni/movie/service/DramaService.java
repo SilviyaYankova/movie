@@ -20,4 +20,7 @@ public interface DramaService {
     List<DramaViewModel> displayUserDramas(UserEntity user);
 
     DramaEntity findDramaById(Long id);
+
+    void seedDramas();
+
 }

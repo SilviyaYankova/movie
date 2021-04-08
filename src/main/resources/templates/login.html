@@ -61,12 +61,7 @@
 
 <th:block sec:authorize="!isAuthenticated()">
             <br><br><br><br><br><br><br>
-    <footer id="footer1" class="py-4 bg-dark">
-        <div class="container-fluid text-center">
-            <p class="m-0 text-center"  style="color: orange">Copyright &copy; Asian Movie Database 2021</p>
-        </div>
-        <!-- /.container -->
-    </footer>
+    <footer th:replace="fragments/footer"></footer>
 </th:block>
 <footer sec:authorize="isAuthenticated()" th:replace="fragments/footer"></footer>
 

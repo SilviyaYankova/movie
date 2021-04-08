@@ -1,5 +1,6 @@
 package bg.softuni.movie.web;
 
+import bg.softuni.movie.model.entity.UserEntity;
 import bg.softuni.movie.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,9 +44,10 @@ public class UserRoleController {
         }
 
         userService.grantAuthority(userId, newRole);
+        UserEntity userEntity = userService.findUserById(userId);
 
         redirectAttributes.addFlashAttribute("success",
-                String.format("The user role is assigned to: %s", newRole.toUpperCase()));
+                String.format("The %s role is assigned to: %s", userEntity.getUsername(), newRole.toUpperCase()));
 
         return "redirect:/users/roles/add";
     }

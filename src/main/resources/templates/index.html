@@ -18,37 +18,55 @@
              data-pause="false"
              data-intervale="10"
              style="width: 60%; margin-top: 2%; margin-left: 20%">
-            <h2 class="text-center">Last Added</h2>
+            <h2 class="text-center">On Focus</h2>
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
             </ol>
             <div class="carousel-inner">
-                <div class="carousel-item active">
+                <div class="carousel-item active ">
+                    <a th:href="@{/dramas/drama-details/1}">
+                        <img class="d-block w-100 rounded" th:src="@{/images/Because_This_Is_My_First_Life-P1.png}"
 
-                    <a href="https://asianwiki.com/Beyond_Evil">
-                        <img class="d-block w-100 rounded" src="/images/LUCA_The_Beginning-F1.jpg" alt="First slide">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Lorem</h5>
-                            <p>Ipsum</p>
+                             alt="First slide">
+                        <div class="carousel-caption d-none d-md-block text-left">
+                            <h5>Because This Is My FirstLife (2017)</h5>
+                            <p>Drama</p>
                         </div>
                     </a>
+                </div>
 
+                <div class="carousel-item img-fluid">
+                    <a th:href="@{/movies/movie-details/1}">
+                        <img class="d-block w-100 rounded" th:src="@{/images/The_Dude_In_Me-tp1.jpg}" alt="First slide">
+                        <div class="carousel-caption d-none d-md-block text-left">
+                            <h5>The Dude In Me (2020)</h5>
+                            <p>Movie</p>
+                        </div>
+                    </a>
                 </div>
+
                 <div class="carousel-item">
-                    <img class="d-block w-100 rounded" src="/images/Beyond_Evil-F1.jpg" alt="Second slide">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>Lorem</h5>
-                        <p>Ipsum</p>
-                    </div>
+                    <a th:href="@{/dramas/drama-details/2}">
+                        <img class="d-block w-100 rounded" th:src="@{/images/Tunnel.jpg}" alt="First slide">
+                        <div class="carousel-caption d-none d-md-block text-left">
+                            <h5>Tunnel (2017)</h5>
+                            <p>Drama</p>
+                        </div>
+                    </a>
                 </div>
+
                 <div class="carousel-item">
-                    <img class="d-block w-100 rounded" src="/images/Daughter-2020-F1.jpg" alt="Third slide">
-                    <div class="carousel-caption d-none d-md-block text-left">
-                        <h5>Lorem</h5>
-                        <p>Ipsum</p>
-                    </div>
+                    <a th:href="@{/movies/movie-details/3}">
+                        <img class="d-block rounded" th:src="@{/images/Space_Sweepers-mp01.jpg}"
+                             alt="First slide">
+                        <div class="carousel-caption d-none d-md-block text-left">
+                            <h5>Space Sweepers (2020)</h5>
+                            <p>Movie</p>
+                        </div>
+                    </a>
                 </div>
 
             </div>
