@@ -10,6 +10,7 @@ import bg.softuni.movie.model.entity.enums.GenreEnum;
 import bg.softuni.movie.model.service.DramaServiceModel;
 import bg.softuni.movie.model.view.DramaViewModel;
 import bg.softuni.movie.repository.DramaRepository;
+import bg.softuni.movie.repository.UserRepository;
 import bg.softuni.movie.service.CountryService;
 import bg.softuni.movie.service.DramaService;
 import bg.softuni.movie.service.GenreService;

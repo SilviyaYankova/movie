@@ -38,8 +38,7 @@ public class DramaCommentServiceImpl implements DramaCommentService {
 
         UserEntity user = userService.findUser(commentServiceModel.getUser());
 
-        DramaEntity dramaEntity = dramaService
-                .findDramaById(drama.getId());
+        DramaEntity dramaEntity = dramaService.findDramaById(drama.getId());
 
         commentEntity
                 .setAddedOn(LocalDateTime.now())

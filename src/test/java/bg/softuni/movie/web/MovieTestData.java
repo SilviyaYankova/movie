@@ -1,6 +1,5 @@
 package bg.softuni.movie.web;
 
-import bg.softuni.movie.model.entity.DramaEntity;
 import bg.softuni.movie.model.entity.MovieEntity;
 import bg.softuni.movie.model.entity.UserEntity;
 import bg.softuni.movie.model.entity.enums.CountryEnum;

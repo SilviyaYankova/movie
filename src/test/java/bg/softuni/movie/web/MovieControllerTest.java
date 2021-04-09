@@ -55,7 +55,8 @@ public class MovieControllerTest {
         testData = new MovieTestData(
                 userRepository,
                 movieRepository,
-                countryService, genreService);
+                countryService,
+                genreService);
 
         testData.init();
         testMovieId = testData.getTestMovieId();
