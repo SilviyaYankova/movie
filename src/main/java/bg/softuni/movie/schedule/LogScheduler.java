@@ -19,7 +19,7 @@ public class LogScheduler {
 //  day of month,
 //  month,
 //  day(s) of week.
-  @Scheduled(cron = "0 12 00 * * *")
+  @Scheduled(cron = "0 10 15 * * *")
   public void onEvery24Hours() {
     logService.deleteOlderThen24Hours();
     System.out.println("Logs are deleted!");
