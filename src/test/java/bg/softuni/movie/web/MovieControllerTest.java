@@ -1,12 +1,13 @@
 package bg.softuni.movie.web;
 
 import bg.softuni.movie.exceptions.ObjectNotFoundException;
-import bg.softuni.movie.model.entity.CountryEntity;
 import bg.softuni.movie.model.entity.DramaEntity;
+import bg.softuni.movie.model.entity.MovieEntity;
 import bg.softuni.movie.model.entity.UserEntity;
 import bg.softuni.movie.model.entity.enums.CountryEnum;
 import bg.softuni.movie.model.entity.enums.GenreEnum;
 import bg.softuni.movie.repository.DramaRepository;
+import bg.softuni.movie.repository.MovieRepository;
 import bg.softuni.movie.repository.UserRepository;
 import bg.softuni.movie.service.CountryService;
 import bg.softuni.movie.service.GenreService;
@@ -24,16 +25,16 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.List;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase
-public class DramaControllerTest {
+public class MovieControllerTest {
 
-    private static final String DRAMA_CONTROLLER_PREFIX = "/dramas";
+    private static final String Movie_CONTROLLER_PREFIX = "/movies";
 
-    private long testDramaId;
+    private long testMovieId;
 
     @Autowired
     private MockMvc mockMvc;
@@ -41,40 +42,40 @@ public class DramaControllerTest {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private DramaRepository dramaRepository;
+    private MovieRepository movieRepository;
     @Autowired
     private CountryService countryService;
     @Autowired
     private GenreService genreService;
 
-    private DramaTestData testData;
+    private MovieTestData testData;
 
     @BeforeEach
     public void setUp() {
-        testData = new DramaTestData(
+        testData = new MovieTestData(
                 userRepository,
-                dramaRepository,
+                movieRepository,
                 countryService, genreService);
+
         testData.init();
-        testDramaId = testData.getTestDramaId();
+        testMovieId = testData.getTestMovieId();
     }
 
     @Test
-    @WithMockUser(value = "11111", roles = {"USER", "ADMIN"})
-    void addDrama() throws Exception {
-        UserEntity userEntity = userRepository.findByUsername("11111").orElseThrow(ObjectNotFoundException::new);
+    @WithMockUser(value = "aaaaa", roles = {"USER", "ADMIN"})
+    void addMovie() throws Exception {
+        UserEntity userEntity = userRepository.findByUsername("aaaaa").orElseThrow(ObjectNotFoundException::new);
 
-        mockMvc.perform(MockMvcRequestBuilders.post(DRAMA_CONTROLLER_PREFIX + "/add-drama")
+        mockMvc.perform(MockMvcRequestBuilders.post(Movie_CONTROLLER_PREFIX + "/add-movie")
                 .param("addedOn", "2021-04-09")
                 .param("user", userEntity.getUsername())
-                .param("title", "test test")
-                .param("episodes", "16")
-                .param("country", "20")
+                .param("title", "test movie")
+                .param("country", "5")
                 .param("releaseDate", "2000-01-01")
                 .param("director", "test director")
                 .param("distributor", "test distributor")
                 .param("description", "test description")
-                .param("genre", GenreEnum.DRAMA.name())
+                .param("genre", GenreEnum.FANTASY.name())
                 .param("cast", "test cast")
                 .param("imageUrl", "test imageUrl")
                 .param("trailerUrl", "test imageUrl")
@@ -83,10 +84,10 @@ public class DramaControllerTest {
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection());
 
-        List<DramaEntity> list = dramaRepository.findAll();
+        List<MovieEntity> list = movieRepository.findAll();
 
         System.out.println();
-        Assertions.assertEquals(6, dramaRepository.count());
+        Assertions.assertEquals(6, movieRepository.count());
     }
 
 }

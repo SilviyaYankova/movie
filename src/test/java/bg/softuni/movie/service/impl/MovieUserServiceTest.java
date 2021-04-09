@@ -6,6 +6,7 @@ import bg.softuni.movie.model.entity.enums.UserRoleEnum;
 import bg.softuni.movie.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -41,7 +42,7 @@ public class MovieUserServiceTest {
         );
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testExistingUser() {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername("pesho");
