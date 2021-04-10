@@ -13,6 +13,8 @@ import bg.softuni.movie.service.GenreService;
 import bg.softuni.movie.service.MovieService;
 import bg.softuni.movie.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -139,7 +141,20 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void delete(Long id) {
-        movieRepository.deleteById(id);
+        MovieEntity movieEntity = movieRepository.findById(id).orElseThrow(ObjectNotFoundException::new);
+
+        Long movieAddedByUserId = movieEntity.getUser().getId();
+
+        Authentication authentication = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        String username = authentication.getName();
+        UserEntity user = userService.findUser(username);
+
+        if (movieAddedByUserId.equals(user.getId()) || user.getId() == 1) {
+            movieRepository.deleteById(id);
+        }
     }
 
     @Override
@@ -178,5 +193,4 @@ public class MovieServiceImpl implements MovieService {
 
         return movieViewModel;
     }
-
 }

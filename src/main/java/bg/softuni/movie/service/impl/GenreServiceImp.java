@@ -47,6 +47,4 @@ public class GenreServiceImp implements GenreService {
     public GenreEntity findGenre(GenreEnum name) {
         return genreRepository.findByName(name);
     }
-
-
 }

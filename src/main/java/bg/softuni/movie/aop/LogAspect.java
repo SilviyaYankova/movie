@@ -44,5 +44,4 @@ public class LogAspect {
 
         logService.createMovieLog(action, movieId);
     }
-
 }

@@ -9,7 +9,7 @@
                      style="background-color: azure">
             </a>
 
-<!--                    admin-->
+            <!--                    admin-->
             <div sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown" style="color: orange">
                 <button class="nav-link btn dropdown-toggle" style="color: orange" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -34,8 +34,10 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" style="color: orange" th:href="@{/users/profile}">Profile</a>
-                                <a class="dropdown-item" style="color: orange" th:href="@{/users/my-dramas}">My Dramas</a>
-                                <a class="dropdown-item" style="color: orange" th:href="@{/users/my-movies}">My Movies</a>
+                                <a class="dropdown-item" style="color: orange" th:href="@{/users/my-dramas}">My
+                                    Dramas</a>
+                                <a class="dropdown-item" style="color: orange" th:href="@{/users/my-movies}">My
+                                    Movies</a>
                             </div>
                         </div>
 

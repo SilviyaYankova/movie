@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 public class LogEntity extends BaseEntity {
 
     private UserEntity user;
-    private DramaEntity drama;
-    private MovieEntity movie;
+    private String drama;
+    private String movie;
     private String action;
     private LocalDateTime dateTime;
 
@@ -29,22 +29,23 @@ public class LogEntity extends BaseEntity {
         return this;
     }
 
-    @ManyToOne
-    public DramaEntity getDrama() {
+
+    @Column(name = "drama")
+    public String getDrama() {
         return drama;
     }
 
-    public LogEntity setDrama(DramaEntity drama) {
+    public LogEntity setDrama(String drama) {
         this.drama = drama;
         return this;
     }
 
-    @ManyToOne
-    public MovieEntity getMovie() {
+    @Column(name = "movie")
+    public String getMovie() {
         return movie;
     }
 
-    public LogEntity setMovie(MovieEntity movie) {
+    public LogEntity setMovie(String movie) {
         this.movie = movie;
         return this;
     }

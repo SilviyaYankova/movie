@@ -1,6 +1,5 @@
 package bg.softuni.movie.model.entity;
 
-
 import bg.softuni.movie.model.entity.enums.UserRoleEnum;
 
 import javax.persistence.Entity;

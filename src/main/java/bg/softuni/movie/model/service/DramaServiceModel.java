@@ -145,7 +145,6 @@ public class DramaServiceModel {
         return this;
     }
 
-
     public List<DramaCommentEntity> getComments() {
         return comments;
     }

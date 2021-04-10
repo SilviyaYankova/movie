@@ -10,12 +10,14 @@ import bg.softuni.movie.model.entity.enums.GenreEnum;
 import bg.softuni.movie.model.service.DramaServiceModel;
 import bg.softuni.movie.model.view.DramaViewModel;
 import bg.softuni.movie.repository.DramaRepository;
-import bg.softuni.movie.repository.UserRepository;
+import bg.softuni.movie.repository.LogRepository;
 import bg.softuni.movie.service.CountryService;
 import bg.softuni.movie.service.DramaService;
 import bg.softuni.movie.service.GenreService;
 import bg.softuni.movie.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -150,7 +152,19 @@ public class DramaServiceImpl implements DramaService {
 
     @Override
     public void delete(Long id) {
-        dramaRepository.deleteById(id);
+        DramaEntity dramaEntity = dramaRepository.findById(id).orElseThrow(ObjectNotFoundException::new);
+        Long dramaAddedByUserId = dramaEntity.getUser().getId();
+
+        Authentication authentication = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        String username = authentication.getName();
+        UserEntity user = userService.findUser(username);
+
+        if (dramaAddedByUserId.equals(user.getId()) || user.getId() == 1) {
+            dramaRepository.deleteById(id);
+        }
     }
 
     @Override
@@ -167,7 +181,6 @@ public class DramaServiceImpl implements DramaService {
                 .findById(id)
                 .orElseThrow(ObjectNotFoundException::new);
     }
-
 
     public DramaViewModel mapDramaViewModelToDramaEntity(DramaEntity dramaEntity) {
         DramaViewModel dramaViewModel = new DramaViewModel();

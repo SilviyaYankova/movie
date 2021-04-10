@@ -34,8 +34,10 @@
                         <input
                                 th:field="*{username}"
                                 type="text" name="username" id="inputUsername" class="form-control"
-                                aria-describedby="usernameHelpInline" placeholder="Username" required minlength="5" maxlength="20">
-                        <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}" id="usernameError" class="text-light form-text bg-danger rounded">Length must between 3
+                                aria-describedby="usernameHelpInline" placeholder="Username" required minlength="5"
+                                maxlength="20">
+                        <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}" id="usernameError"
+                               class="text-light form-text bg-danger rounded">Length must between 3
                             and 20 characters</small>
                     </div>
 
@@ -46,7 +48,8 @@
                     </div>
                     <div class="col-auto">
                         <input type="password" name="password" id="inputPassword" class="form-control"
-                               aria-describedby="passwordHelpInline" placeholder="Password" required minlength="5" maxlength="20">
+                               aria-describedby="passwordHelpInline" placeholder="Password" required minlength="5"
+                               maxlength="20">
                     </div>
 
                 </div>
@@ -60,7 +63,7 @@
 </main>
 
 <th:block sec:authorize="!isAuthenticated()">
-            <br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br>
     <footer th:replace="fragments/footer"></footer>
 </th:block>
 <footer sec:authorize="isAuthenticated()" th:replace="fragments/footer"></footer>

@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MovieCommentRepository extends JpaRepository<MovieCommentEntity, Long> {
 
-
 }

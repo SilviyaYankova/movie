@@ -7,8 +7,8 @@ import bg.softuni.movie.model.entity.enums.GenreEnum;
 import java.util.List;
 
 public interface CountryService {
-    void seedCountries();
 
+    void seedCountries();
 
     CountryEntity findCountry(CountryEnum name);
 }

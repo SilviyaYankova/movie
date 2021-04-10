@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface DramaService {
 
+    void seedDramas();
+
     void addDrama(DramaServiceModel dramaServiceModel);
 
     List<DramaViewModel> displayAllDramas();
@@ -20,7 +22,5 @@ public interface DramaService {
     List<DramaViewModel> displayUserDramas(UserEntity user);
 
     DramaEntity findDramaById(Long id);
-
-    void seedDramas();
 
 }

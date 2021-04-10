@@ -19,8 +19,6 @@ public class UserEntity extends BaseEntity {
     private String imageUrl;
     private LocalDate registeredOn;
     private List<UserRoleEntity> roles = new ArrayList<>();
-//    private List<DramaEntity> dramas = new ArrayList<>();
-//    private List<MovieEntity> movies = new ArrayList<>();
 
     public UserEntity() {
     }
@@ -90,28 +88,6 @@ public class UserEntity extends BaseEntity {
         this.roles.add(userRole);
         return this;
     }
-
-//    @OneToMany(fetch = FetchType.EAGER)
-//    @Fetch(value = FetchMode.SUBSELECT)
-//    public List<DramaEntity> getDramas() {
-//        return dramas;
-//    }
-//
-//    public UserEntity setDramas(List<DramaEntity> dramas) {
-//        this.dramas = dramas;
-//        return this;
-//    }
-//
-//    @OneToMany(fetch = FetchType.EAGER)
-//    @Fetch(value = FetchMode.SUBSELECT)
-//    public List<MovieEntity> getMovies() {
-//        return movies;
-//    }
-//
-//    public UserEntity setMovies(List<MovieEntity> movies) {
-//        this.movies = movies;
-//        return this;
-//    }
 
     @Column(name = "registered_on", nullable = false)
     public LocalDate getRegisteredOn() {

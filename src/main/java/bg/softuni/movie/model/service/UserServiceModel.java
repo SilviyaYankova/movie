@@ -16,8 +16,8 @@ public class UserServiceModel {
     private String email;
     private MultipartFile imageUrl;
     private List<UserRoleEntity> roles = new ArrayList<>();
-    private List<MovieEntity> favouriteMovies = new ArrayList<>();
-    private List<DramaEntity> favouriteDramas = new ArrayList<>();
+    private List<MovieEntity> movies = new ArrayList<>();
+    private List<DramaEntity> dramas = new ArrayList<>();
 
     public UserServiceModel() {
     }
@@ -76,21 +76,21 @@ public class UserServiceModel {
         return this;
     }
 
-    public List<MovieEntity> getFavouriteMovies() {
-        return favouriteMovies;
+    public List<MovieEntity> getMovies() {
+        return movies;
     }
 
-    public UserServiceModel setFavouriteMovies(List<MovieEntity> favouriteMovies) {
-        this.favouriteMovies = favouriteMovies;
+    public UserServiceModel setMovies(List<MovieEntity> movies) {
+        this.movies = movies;
         return this;
     }
 
-    public List<DramaEntity> getFavouriteDramas() {
-        return favouriteDramas;
+    public List<DramaEntity> getDramas() {
+        return dramas;
     }
 
-    public UserServiceModel setFavouriteDramas(List<DramaEntity> favouriteDramas) {
-        this.favouriteDramas = favouriteDramas;
+    public UserServiceModel setDramas(List<DramaEntity> dramas) {
+        this.dramas = dramas;
         return this;
     }
 }

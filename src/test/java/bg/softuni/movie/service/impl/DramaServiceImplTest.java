@@ -8,6 +8,7 @@ import bg.softuni.movie.model.entity.enums.CountryEnum;
 import bg.softuni.movie.model.entity.enums.GenreEnum;
 import bg.softuni.movie.model.view.DramaViewModel;
 import bg.softuni.movie.repository.DramaRepository;
+import bg.softuni.movie.repository.LogRepository;
 import bg.softuni.movie.repository.UserRepository;
 import bg.softuni.movie.service.CountryService;
 import bg.softuni.movie.service.GenreService;
@@ -49,9 +50,6 @@ class DramaServiceImplTest {
 
     @Mock
     DramaRepository mockDramaRepository;
-
-    @Mock
-    UserRepository mockUserRepository;
 
     @BeforeEach
     public void init() {
@@ -157,6 +155,4 @@ class DramaServiceImplTest {
         Assertions.assertEquals(testDramaEntity2.getAddedOn(), model2.getAddedOn());
 
     }
-
-
 }

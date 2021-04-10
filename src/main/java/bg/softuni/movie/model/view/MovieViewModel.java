@@ -1,6 +1,5 @@
 package bg.softuni.movie.model.view;
 
-
 import bg.softuni.movie.model.entity.DramaCommentEntity;
 import bg.softuni.movie.model.entity.CountryEntity;
 import bg.softuni.movie.model.entity.GenreEntity;

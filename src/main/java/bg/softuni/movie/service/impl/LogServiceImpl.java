@@ -49,7 +49,7 @@ public class LogServiceImpl implements LogService {
         UserEntity user = userService.findUser(username);
 
         LogEntity logEntity = new LogEntity()
-                .setDrama(dramaEntity)
+                .setDrama(dramaEntity.getTitle())
                 .setUser(user)
                 .setAction(action)
                 .setDateTime(LocalDateTime.now());
@@ -70,7 +70,7 @@ public class LogServiceImpl implements LogService {
         UserEntity user = userService.findUser(username);
 
         LogEntity logEntity = new LogEntity()
-                .setMovie(movieEntity)
+                .setMovie(movieEntity.getTitle())
                 .setUser(user)
                 .setAction(action)
                 .setDateTime(LocalDateTime.now());
@@ -92,11 +92,10 @@ public class LogServiceImpl implements LogService {
 
                     if (logEntity.getDrama() == null) {
                         logServiceModel.setDrama("——————————");
-                        logServiceModel.setMovie(logEntity.getMovie().getTitle());
+                        logServiceModel.setMovie(logEntity.getMovie());
                     } else if (logEntity.getMovie() == null) {
-//                        logServiceModel.setMovie("-------------------");
                         logServiceModel.setMovie("——————————");
-                        logServiceModel.setDrama(logEntity.getDrama().getTitle());
+                        logServiceModel.setDrama(logEntity.getDrama());
                     }
 
                     return logServiceModel;

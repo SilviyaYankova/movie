@@ -48,12 +48,9 @@ public class DramaCommentServiceImpl implements DramaCommentService {
         comments.add(commentEntity);
 
         dramaEntity
-                .setComments(comments)
-                .setUser(user);
+                .setComments(comments);
 
         dramaCommentRepository.save(commentEntity);
         dramaRepository.save(dramaEntity);
     }
-
-
 }

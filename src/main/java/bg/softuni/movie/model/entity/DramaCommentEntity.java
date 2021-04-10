@@ -43,5 +43,4 @@ public class DramaCommentEntity extends BaseEntity{
         this.addedOn = addedOn;
         return this;
     }
-
 }

@@ -51,11 +51,9 @@ public class MovieCommentServiceImpl implements MovieCommentService {
         comments.add(commentEntity);
 
         movieEntity
-                .setComments(comments)
-                .setUser(user);
+                .setComments(comments);
 
         movieCommentRepository.save(commentEntity);
         movieRepository.save(movieEntity);
     }
-
 }

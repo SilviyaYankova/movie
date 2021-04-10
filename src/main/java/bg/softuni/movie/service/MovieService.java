@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MovieService {
+
+    void seedMovies();
+
     void addMovie(MovieServiceModel movieServiceModel);
 
     List<MovieViewModel> displayAllMovies();
@@ -20,7 +23,4 @@ public interface MovieService {
     List<MovieViewModel> displayUserMovies(UserEntity user);
 
     MovieEntity findMovieById(Long id);
-
-
-    void seedMovies();
 }

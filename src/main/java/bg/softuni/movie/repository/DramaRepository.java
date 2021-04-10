@@ -17,5 +17,4 @@ public interface DramaRepository extends JpaRepository<DramaEntity, Long> {
 
     List<DramaEntity> findAllByUser(UserEntity username);
 
-
 }

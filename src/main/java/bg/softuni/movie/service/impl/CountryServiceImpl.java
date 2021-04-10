@@ -17,7 +17,6 @@ public class CountryServiceImpl implements CountryService {
         this.countryRepository = countryRepository;
     }
 
-
     @Override
     public void seedCountries() {
         if (countryRepository.count() == 0) {
@@ -81,7 +80,6 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public CountryEntity findCountry(CountryEnum name) {
-
         return countryRepository.findByName(name);
     }
 }

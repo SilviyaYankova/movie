@@ -30,11 +30,13 @@
 
                     <div class="col">
                         <label for="country">Country</label>
-                        <select th:field="*{country.name}" name="country" th:errorclass="is-invalid" id="country" class="custom-select">
+                        <select th:field="*{country.name}" name="country" th:errorclass="is-invalid" id="country"
+                                class="custom-select">
                             <option value="" selected>Select Country</option>
                             <option th:each="c : ${T(bg.softuni.movie.model.entity.enums.CountryEnum).values()}"
                                     th:value="${c.name()}"
-                                    th:text="${c.name()}">First Country</option>
+                                    th:text="${c.name()}">First Country
+                            </option>
                         </select>
                         <small th:if="${#fields.hasErrors('country')}" th:errors="*{country}" id="countryError"
                                class="invalid-feedback form-text bg-danger rounded"></small>
@@ -81,8 +83,8 @@
                 <div class="form-row m-5 text-dark">
                     <div class="col">
                         <label>Genre </label>
-                        <th:block class="redError" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}" >
-                            <small class="form-text bg-danger rounded" >
+                        <th:block class="redError" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}">
+                            <small class="form-text bg-danger rounded">
                             </small>
                             <br/>
                         </th:block>

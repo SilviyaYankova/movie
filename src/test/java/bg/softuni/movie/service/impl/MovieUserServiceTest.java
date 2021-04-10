@@ -72,5 +72,4 @@ public class MovieUserServiceTest {
         Assertions.assertTrue(authorities.contains("ROLE_ADMIN"));
         Assertions.assertTrue(authorities.contains("ROLE_USER"));
     }
-
 }
