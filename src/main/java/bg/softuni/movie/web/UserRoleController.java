@@ -23,7 +23,7 @@ public class UserRoleController {
 
     @GetMapping("/add")
     public String grantAuthorityForm(Model model) {
-        System.out.println();
+
         if (!model.containsAttribute("users")) {
             model.addAttribute("users", userService.getAllUsers());
         }
@@ -35,8 +35,6 @@ public class UserRoleController {
     public String grantAuthority(@RequestParam(value = "username", required = false) Long userId,
                                  @RequestParam(value = "role", required = false) String newRole,
                                  RedirectAttributes redirectAttributes) {
-
-        boolean isIdNull = userId == null;
 
         if (userId == null || newRole == null) {
             redirectAttributes.addFlashAttribute("errors", "Set username and role");

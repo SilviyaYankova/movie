@@ -3,6 +3,7 @@ package bg.softuni.movie.web;
 import bg.softuni.movie.model.binding.CommentAddBindingModel;
 import bg.softuni.movie.model.binding.DramaAddBindingModel;
 import bg.softuni.movie.model.entity.UserEntity;
+import bg.softuni.movie.model.entity.UserRoleEntity;
 import bg.softuni.movie.model.service.CommentServiceModel;
 import bg.softuni.movie.model.service.DramaServiceModel;
 import bg.softuni.movie.model.view.DramaViewModel;
@@ -92,6 +93,20 @@ public class DramaController {
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        UserEntity loggedInUser = userService.findUser(username);
+        List<UserRoleEntity> userRoles = loggedInUser.getRoles();
+        String role = userRoles.get(0).getRole().name();
+
+        if (role.equals("ADMIN")) {
+            dramaService.delete(id);
+
+            return "redirect:/dramas/all-dramas";
+        }
+
         dramaService.delete(id);
 
         return "redirect:/users/my-dramas";
