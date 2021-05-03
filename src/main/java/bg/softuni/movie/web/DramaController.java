@@ -2,13 +2,17 @@ package bg.softuni.movie.web;
 
 import bg.softuni.movie.model.binding.CommentAddBindingModel;
 import bg.softuni.movie.model.binding.DramaAddBindingModel;
+import bg.softuni.movie.model.entity.UserEntity;
 import bg.softuni.movie.model.service.CommentServiceModel;
 import bg.softuni.movie.model.service.DramaServiceModel;
 import bg.softuni.movie.model.view.DramaViewModel;
 import bg.softuni.movie.service.DramaCommentService;
 import bg.softuni.movie.service.DramaService;
+import bg.softuni.movie.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,11 +28,13 @@ import java.util.List;
 public class DramaController {
 
     private Long dramaId;
+    private final UserService userService;
     private final DramaService dramaService;
     private final DramaCommentService dramaCommentService;
     private final ModelMapper modelMapper;
 
-    public DramaController(DramaService dramaService, DramaCommentService dramaCommentService, ModelMapper modelMapper) {
+    public DramaController(UserService userService, DramaService dramaService, DramaCommentService dramaCommentService, ModelMapper modelMapper) {
+        this.userService = userService;
         this.dramaService = dramaService;
         this.dramaCommentService = dramaCommentService;
         this.modelMapper = modelMapper;
@@ -70,9 +76,16 @@ public class DramaController {
     @GetMapping("/all-dramas")
     public String allDramas(Model model) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        UserEntity loggedInUser = userService.findUser(username);
+
         List<DramaViewModel> dramaViewModelList = dramaService.displayAllDramas();
 
         model.addAttribute("allDramas", dramaViewModelList);
+
+        model.addAttribute("loggedInUser", loggedInUser);
 
         return "all-dramas";
     }
@@ -81,7 +94,7 @@ public class DramaController {
     public String delete(@PathVariable Long id) {
         dramaService.delete(id);
 
-        return "redirect:/dramas/all-dramas";
+        return "redirect:/users/my-dramas";
     }
 
     @GetMapping("/drama-details/{id}")

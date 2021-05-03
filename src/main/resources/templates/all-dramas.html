@@ -37,7 +37,7 @@
                                 <a th:href="@{/dramas/drama-details/{id}(id = *{id})}" type="button"
                                    class="btn btn-sm btn-info">Details</a>
                             </div>
-                            <div class="btn-group">
+                            <div th:if="(*{user.getUsername()} == ${loggedInUser.getUsername()}) OR (${loggedInUser.getUsername() == 'admin'})" class="btn-group">
                                 <a th:href="@{/dramas/delete/{id}(id = *{id})}" type="button"
                                    class="btn btn-sm btn-info">Delete</a>
                             </div>

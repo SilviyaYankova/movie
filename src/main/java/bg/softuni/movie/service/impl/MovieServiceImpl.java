@@ -178,6 +178,8 @@ public class MovieServiceImpl implements MovieService {
         modelMapper.map(movieViewModel, MovieEntity.class);
 
         movieViewModel
+                .setUser(movieEntity.getUser()
+                )
                 .setId(movieEntity.getId())
                 .setTitle(movieEntity.getTitle())
                 .setImageUrl(movieEntity.getImageUrl())

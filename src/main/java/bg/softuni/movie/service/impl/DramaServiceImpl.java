@@ -200,7 +200,8 @@ public class DramaServiceImpl implements DramaService {
                 .setCountry(dramaEntity.getCountry())
                 .setCast(dramaEntity.getCast())
                 .setAddedOn(LocalDate.now())
-                .setComments(dramaEntity.getComments());
+                .setComments(dramaEntity.getComments())
+                .setUser(dramaEntity.getUser());
 
         return dramaViewModel;
     }

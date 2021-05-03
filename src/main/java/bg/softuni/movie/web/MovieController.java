@@ -2,13 +2,17 @@ package bg.softuni.movie.web;
 
 import bg.softuni.movie.model.binding.CommentAddBindingModel;
 import bg.softuni.movie.model.binding.MovieAddBindingModel;
+import bg.softuni.movie.model.entity.UserEntity;
 import bg.softuni.movie.model.service.CommentServiceModel;
 import bg.softuni.movie.model.service.MovieServiceModel;
 import bg.softuni.movie.model.view.MovieViewModel;
 import bg.softuni.movie.service.MovieCommentService;
 import bg.softuni.movie.service.MovieService;
+import bg.softuni.movie.service.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,11 +28,13 @@ import java.util.List;
 public class MovieController {
 
     private Long movieId;
+    private final UserService userService;
     private final MovieService movieService;
     private final MovieCommentService movieCommentService;
     private final ModelMapper modelMapper;
 
-    public MovieController(MovieService movieService, MovieCommentService movieCommentService, ModelMapper modelMapper) {
+    public MovieController(UserService userService, MovieService movieService, MovieCommentService movieCommentService, ModelMapper modelMapper) {
+        this.userService = userService;
         this.movieService = movieService;
         this.movieCommentService = movieCommentService;
         this.modelMapper = modelMapper;
@@ -70,9 +76,16 @@ public class MovieController {
     @GetMapping("/all-movies")
     public String allDramas(Model model) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        UserEntity loggedInUser = userService.findUser(username);
+
         List<MovieViewModel> movieViewModelList = movieService.displayAllMovies();
 
         model.addAttribute("allMovies", movieViewModelList);
+
+        model.addAttribute("loggedInUser", loggedInUser);
 
         return "all-movies";
     }
@@ -93,7 +106,7 @@ public class MovieController {
     public String delete(@PathVariable Long id) {
         movieService.delete(id);
 
-        return "redirect:/movies/all-movies";
+        return "redirect:/users/my-movies";
     }
 
     @GetMapping("/add-comment")
